@@ -116,8 +116,6 @@ ALTER TABLE IF EXISTS public.team_pokemon
 
 
 
-//DATOS DE PRUEBA IA
-
 BEGIN;
 
 -- ======================
