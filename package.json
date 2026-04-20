@@ -1,7 +1,7 @@
 {
   "name": "pokeback",
   "version": "1.0.0",
-  "description": "🧩 Proyecto Backend – Plataforma de Juegos y Tienda Pokémon 📌 Descripción",
+  "description": "Proyecto Backend – Plataforma de Juegos y Tienda Pokémon Descripción",
   "main": "index.js",
  "scripts": {
   "start": "node src/index.js",
