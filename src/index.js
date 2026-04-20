@@ -1,15 +1,23 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import sequelize from './config/db.js'
-import userRoutes from './routes/user.routes.js'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
 
-const app = express() // ✅ PRIMERO creas app
+const app = express() 
 
-app.use(express.json()) // middleware
+app.use(express.json()) 
 
-app.use('/api/users', userRoutes) // ✅ DESPUÉS lo usas
+app.use('/api/users', userRoutes) 
+
+app.use((err, req, res, next) => {
+  console.error(err)
+
+  res.status(err.statusCode || 500).json({
+    error: err.message || 'Error interno del servidor'
+  })
+})
 
 const startServer = async () => {
   try {
@@ -27,6 +35,7 @@ const startServer = async () => {
   } catch (error) {
     console.error('❌ Error al iniciar:', error)
   }
+  
 }
 
 startServer()
