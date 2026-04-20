@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { verifyToken } from '../middlewares/authMiddleware.js'
 import {
   getUsers,
   getUserById,
@@ -8,6 +9,7 @@ import {
 } from '../controllers/userController.js'
 
 const router = Router()
+router.use(verifyToken) //  protege TODAS las rutas
 
 router.get('/', getUsers)
 router.get('/:id', getUserById)
