@@ -4,12 +4,7 @@
   "description": "🧩 Proyecto Backend – Plataforma de Juegos y Tienda Pokémon 📌 Descripción",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "dev": "nodemon src/indexTeams.js",
-=======
     "dev": "nodemon src/indexTeams.js"
->>>>>>> a92437d3f4c0b06744b3601415479ab449735fbc
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +14,8 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "pg": "^8.20.0"
+    "pg": "^8.20.0",
+    "sequelize": "^6.37.8"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

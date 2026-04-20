@@ -1,4 +1,6 @@
-import * as TeamService from "../../services/teamService.js";
+// src/controllers/teamController.js
+
+import * as TeamService from "../services/teamService.js"; // CORREGIDO: un solo "../"
 
 export const getTeam = async (req, res) => {
     try {
@@ -14,7 +16,6 @@ export const createTeamMember = async (req, res) => {
         const newMember = await TeamService.addPokemonToTeam(req.body);
         res.status(201).json(newMember);
     } catch (error) {
-        // Si el servicio lanza el error de "equipo lleno", cae aquí
         res.status(400).json({ error: error.message });
     }
 };
