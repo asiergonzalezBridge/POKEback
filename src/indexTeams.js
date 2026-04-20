@@ -1,21 +1,25 @@
 import app from "./app.js";
 import sequelize from "./config/db.js";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-async function startServer() {
+async function main() {
     try {
+        // Conexión a la base de datos
         await sequelize.authenticate();
         console.log("Conexion a la base de datos establecida.");
 
+        // Sincronización de modelos con la base de datos
+        await sequelize.sync({ force: false });
+        console.log("Modelos sincronizados.");
+
+        // Inicio del servidor
         app.listen(PORT, () => {
-            console.log("Servidor ejecutandose en el puerto " + PORT);
+            console.log("Servidor escuchando en el puerto: " + PORT);
         });
-        
     } catch (error) {
-        console.error("No se pudo iniciar el servidor debido a un error en la base de datos:", error);
-        process.exit(1); 
+        console.error("Error al iniciar la aplicacion:", error);
     }
 }
 
-startServer();
+main();

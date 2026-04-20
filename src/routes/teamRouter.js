@@ -1,15 +1,10 @@
 import { Router } from "express";
-import teamController from "../../controllers/api/teamController.js";
+import * as teamController from "../controllers/teamController.js";
 
 const router = Router();
 
-//ruta para equipo
 router.get("/:userId", teamController.getTeam);
-
-// ruta añadir equipo
-router.post("/", teamController.postPokemon);
-
-// ruta para eliminar
-router.delete("/:id", teamController.deletePokemon);
+router.post("/", teamController.createTeamMember);
+router.delete("/:id", teamController.deleteTeamMember);
 
 export default router;

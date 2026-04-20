@@ -1,44 +1,29 @@
-import { teamFunctions } from "../../models/teamModel.js";
+import * as TeamService from "../../services/teamService.js";
 
-// Obtener el equipo de un usuario
-async function getTeam(req, res) {
+export const getTeam = async (req, res) => {
     try {
-        const { userId } = req.params;
-        const team = await teamFunctions.getTeamByUser(userId);
+        const team = await TeamService.getFullTeam(req.params.userId);
         res.json(team);
-        
     } catch (error) {
-        res.status(500).json({ error: "Error al obtener el equipo del usuario." });
+        res.status(500).json({ error: error.message });
     }
-}
+};
 
-// Añadir un Pokémon al equipo
-async function postPokemon(req, res) {
+export const createTeamMember = async (req, res) => {
     try {
-        const pokemonData = req.body;
-        const newPokemon = await teamFunctions.addPokemon(pokemonData);
-        res.status(201).json(newPokemon);
-        
+        const newMember = await TeamService.addPokemonToTeam(req.body);
+        res.status(201).json(newMember);
     } catch (error) {
-        res.status(400).json({ error: "No se pudo añadir el Pokémon. Revisa los datos." });
+        // Si el servicio lanza el error de "equipo lleno", cae aquí
+        res.status(400).json({ error: error.message });
     }
-}
+};
 
-// Borrar un Pokémon
-async function deletePokemon(req, res) {
+export const deleteTeamMember = async (req, res) => {
     try {
-        const { id } = req.params;
-        await teamFunctions.removePokemon(id);
-        res.json({ message: "Pokémon borrado correctamente." });
-        
+        await TeamService.removePokemon(req.params.id);
+        res.json({ message: "Pokémon eliminado del equipo correctamente." });
     } catch (error) {
-        res.status(500).json({ error: "Error al intentar eliminar el Pokémon." });
+        res.status(404).json({ error: error.message });
     }
-}
-
-// / Exportar modelo y funciones para el Router 
-export default {
-    getTeam,
-    postPokemon,
-    deletePokemon
 };
