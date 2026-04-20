@@ -1,4 +1,4 @@
-import app from "./app.js";
+import app from "./appTeams.js";
 import sequelize from "./config/db.js";
 
 const PORT = process.env.PORT || 3000;
