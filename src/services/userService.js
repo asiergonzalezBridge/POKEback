@@ -26,7 +26,7 @@ export const getUserById = async (id) => {
 // CREATE
 export const createUser = async ({ username, password, email, poketype }) => {
   
-  if (!username || !password || !email || !poketype) {
+  if (!username || !password || !email.includes('@') || !poketype) {
     const error = new Error('Faltan campos obligatorios')
     error.statusCode = 400
     throw error
