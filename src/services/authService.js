@@ -1,8 +1,11 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { User } from '../models/index.js'
 
-// 🔐 REGISTER
+
+// REGISTER
 const register = async ({ username, email, password, poketype }) => {
 
   // VALIDACIÓN
@@ -39,7 +42,7 @@ const register = async ({ username, email, password, poketype }) => {
 }
 
 
-// 🔑 LOGIN
+// LOGIN
 const login = async ({ email, password }) => {
 
   if (!email || !password) {
@@ -67,11 +70,12 @@ const login = async ({ email, password }) => {
   }
 
   // GENERAR TOKEN
-  const token = jwt.sign(
-    { 
-      id: user.id_user,   // 👈 MUY IMPORTANTE (tu PK real)
-      email: user.email 
-    },
+ const token = jwt.sign(
+  { 
+    id: user.id_user,
+    email: user.email,
+    rol: user.rol
+  },
     process.env.JWT_SECRET,
     { expiresIn: '24h' }
   )

@@ -35,7 +35,11 @@ const User = sequelize.define('User', {
   coins: {
     type: DataTypes.INTEGER,
     defaultValue: 100
-  }
+  },
+  rol: {
+  type: DataTypes.STRING,
+  defaultValue: 'user'
+}
 
 }, {
   tableName: 'users',

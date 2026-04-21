@@ -49,3 +49,24 @@ export const deleteUser = async (req, res, next) => {
     next(error)
   }
 }
+//PROFILE
+import { User } from '../models/index.js'
+
+export const getProfile = async (req, res, next) => {
+  try {
+    const userId = req.user.id
+
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ['password'] }
+    })
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' })
+    }
+
+    res.json(user)
+
+  } catch (error) {
+    next(error)
+  }
+}

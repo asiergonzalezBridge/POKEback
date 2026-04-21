@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { verifyToken } from '../middlewares/authMiddleware.js'
+import { verifyToken, requireAdmin} from '../middlewares/authMiddleware.js'
+import { getProfile } from '../controllers/userController.js'
 import {
   getUsers,
   getUserById,
@@ -9,12 +10,18 @@ import {
 } from '../controllers/userController.js'
 
 const router = Router()
-router.use(verifyToken) //  protege TODAS las rutas
 
-router.get('/', getUsers)
-router.get('/:id', getUserById)
-router.post('/', createUser)
+router.use(verifyToken)
+
+// perfil → cualquier usuario
+router.get('/perfil', getProfile)
+
+// solo admin
+router.get('/', requireAdmin, getUsers)
+router.get('/:id', requireAdmin, getUserById)
+router.delete('/:id', requireAdmin, deleteUser)
+
+// usuario puede editarse a sí mismo
 router.patch('/:id', updateUser)
-router.delete('/:id', deleteUser)
 
 export default router
