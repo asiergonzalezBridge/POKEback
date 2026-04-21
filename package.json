@@ -1,13 +1,17 @@
 {
   "name": "pokeback",
   "version": "1.0.0",
-  "description": "Backend Pokémon",
-  "main": "src/index.js",
-  "type": "module",
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
-  },
+  "description": "Proyecto Backend – Plataforma de Juegos y Tienda Pokémon Descripción",
+  "main": "index.js",
+ "scripts": {
+  "start": "node src/index.js",
+  "dev": "nodemon src/index.js",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
