@@ -1,91 +1,70 @@
 
-const {
-  getAllProducts,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} = require('../models/products');
+import * as productService from '../services/productService.js'
 
-const getAll = async (req, res) => {
+// GET ALL
+export const getProducts = async (req, res, next) => {
   try {
-    const products = await getAllProducts();
-    res.json(products);
+    const products = await productService.getProducts()
+    res.json(products)
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener productos', details: error.message });
+    next(error)
   }
-};
+}
 
-const getById = async (req, res) => {
+// GET BY ID
+export const getProductById = async (req, res, next) => {
   try {
-    const product = await getProductById(req.params.id);
-    if (!product) {
-      return res.status(404).json({ error: 'Producto no encontrado' });
-    }
-    res.json(product);
+    const product = await productService.getProductById(req.params.id)
+    res.json(product)
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener el producto', details: error.message });
+    next(error)
   }
-};
+}
 
-const create = async (req, res) => {
+// CREATE
+export const createProduct = async (req, res, next) => {
   try {
-    const { type, name, description, price, stock, expire_time } = req.body;
+    const { type, name, description, price, stock, expire_time } = req.body
 
     if (!type || !name || !price || stock === undefined) {
-      return res.status(400).json({ error: 'Faltan campos requeridos' });
+      return res.status(400).json({ error: 'Faltan campos requeridos' })
     }
 
-    const newProduct = await createProduct({ type, name, description, price, stock, expire_time });
-    res.status(201).json(newProduct);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al crear producto', details: error.message });
-  }
-};
-
-const update = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { type, name, description, price, stock, expire_time } = req.body;
-
-    const updatedProduct = await updateProduct(id, {
+    const newProduct = await productService.createProduct({
       type,
       name,
       description,
       price,
       stock,
       expire_time,
-    });
+    })
 
-    if (!updatedProduct) {
-      return res.status(404).json({ error: 'Producto no encontrado' });
-    }
-
-    res.json(updatedProduct);
+    res.status(201).json(newProduct)
   } catch (error) {
-    res.status(500).json({ error: 'Error al actualizar producto', details: error.message });
+    next(error)
   }
-};
+}
 
-const deleteOne = async (req, res) => {
+// UPDATE
+export const updateProduct = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const deletedProduct = await deleteProduct(id);
+    const updatedProduct = await productService.updateProduct(
+      req.params.id,
+      req.body
+    )
 
-    if (!deletedProduct) {
-      return res.status(404).json({ error: 'Producto no encontrado' });
-    }
-
-    res.json({ message: 'Producto eliminado', product: deletedProduct });
+    res.json(updatedProduct)
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar producto', details: error.message });
+    next(error)
   }
-};
+}
 
-module.exports = {
-  getAll,
-  getById,
-  create,
-  update,
-  deleteOne,
-};
+// DELETE
+export const deleteProduct = async (req, res, next) => {
+  try {
+    const result = await productService.deleteProduct(req.params.id)
+    res.json(result)
+  } catch (error) {
+    next(error)
+  }
+}

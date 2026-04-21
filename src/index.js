@@ -1,27 +1,41 @@
+import express from 'express'
+import dotenv from 'dotenv'
+import sequelize from './config/db.js'
+import userRoutes from './routes/userRoutes.js'
 
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
+dotenv.config()
 
-const productsRoute = require('./routes/productsRoute');
+const app = express() 
 
-const app = express();
+app.use(express.json()) 
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
+app.use('/api/users', userRoutes) 
 
-// Rutas
-app.use('/api/products', productsRoute);
+app.use((err, req, res, next) => {
+  console.error(err)
 
-// Ruta de bienvenida
-app.get('/', (req, res) => {
-  res.json({ message: 'Bienvenido a PokéBack API' });
-});
+  res.status(err.statusCode || 500).json({
+    error: err.message || 'Error interno del servidor'
+  })
+})
 
-// Puerto
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
-  console.log(`📍 http://localhost:${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await sequelize.authenticate()
+    console.log('✅ Conectado a la base de datos')
+
+    await sequelize.sync()
+    console.log('✅ Modelos sincronizados')
+
+    const PORT = process.env.PORT || 3000
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor corriendo en puerto ${PORT}`)
+    })
+
+  } catch (error) {
+    console.error('❌ Error al iniciar:', error)
+  }
+  
+}
+
+startServer()
