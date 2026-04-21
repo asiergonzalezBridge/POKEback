@@ -1,6 +1,5 @@
-// src/controllers/teamController.js
-
-import * as TeamService from "../services/teamService.js"; // CORREGIDO: un solo "../"
+// Cambiamos la ruta para que apunte a la carpeta services
+import * as TeamService from "../services/teamService.js"; 
 
 export const getTeam = async (req, res) => {
     try {
@@ -23,7 +22,7 @@ export const createTeamMember = async (req, res) => {
 export const deleteTeamMember = async (req, res) => {
     try {
         await TeamService.removePokemon(req.params.id);
-        res.json({ message: "Pokémon eliminado del equipo correctamente." });
+        res.json({ message: "Pokémon eliminado correctamente." });
     } catch (error) {
         res.status(404).json({ error: error.message });
     }

@@ -2,9 +2,9 @@
   "name": "pokeback",
   "version": "1.0.0",
   "description": "🧩 Proyecto Backend – Plataforma de Juegos y Tienda Pokémon 📌 Descripción",
-  "main": "index.js",
+  "main": "src/indexTeam.js",
   "scripts": {
-    "dev": "nodemon src/indexTeams.js"
+    "dev": "nodemon src/indexTeam.js"
   },
   "keywords": [],
   "author": "",
