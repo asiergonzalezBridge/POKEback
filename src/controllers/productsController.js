@@ -1,4 +1,5 @@
 
+
 import * as productService from '../services/productService.js'
 
 // GET ALL
@@ -24,21 +25,7 @@ export const getProductById = async (req, res, next) => {
 // CREATE
 export const createProduct = async (req, res, next) => {
   try {
-    const { type, name, description, price, stock, expire_time } = req.body
-
-    if (!type || !name || !price || stock === undefined) {
-      return res.status(400).json({ error: 'Faltan campos requeridos' })
-    }
-
-    const newProduct = await productService.createProduct({
-      type,
-      name,
-      description,
-      price,
-      stock,
-      expire_time,
-    })
-
+    const newProduct = await productService.createProduct(req.body)
     res.status(201).json(newProduct)
   } catch (error) {
     next(error)
@@ -52,7 +39,7 @@ export const updateProduct = async (req, res, next) => {
       req.params.id,
       req.body
     )
-
+    
     res.json(updatedProduct)
   } catch (error) {
     next(error)

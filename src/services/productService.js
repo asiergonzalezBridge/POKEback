@@ -1,6 +1,15 @@
 
 import Product from '../models/productsModel.js'
 
+// ID VALIDATION
+const validateId = (id) => {
+  if (!id || isNaN(id)) {
+    const error = new Error('ID inválido')
+    error.statusCode = 400
+    throw error
+  }
+}
+
 // GET ALL
 export const getAllProducts = async () => {
   return await Product.findAll()
@@ -8,11 +17,7 @@ export const getAllProducts = async () => {
 
 // GET BY ID
 export const getProductById = async (id) => {
-  if (!id || isNaN(id)) {
-    const error = new Error('ID incorrecto')
-    error.statusCode = 400
-    throw error
-  }
+  validateId(id)
 
   const product = await Product.findByPk(id)
 
@@ -26,50 +31,33 @@ export const getProductById = async (id) => {
 }
 
 // CREATE
-export const createProduct = async ({
-  type,
-  name,
-  description,
-  price,
-  stock,
-  expire_time
-}) => {
-  if (
-    !type ||
-    !name ||
-    !price === undefined ||
-    stock === undefined
-  ) {
+export const createProduct = async (data) => {
+  const {type, name, description, price, stock, expire_time} = data
+
+  if (!type || !name || price === undefined || stock === undefined) {
     const error = new Error('Faltan campos obligatorios')
     error.statusCode = 400
     throw error
   }
 
-  const newProduct = await Product.create({
-    type,
-    name,
-    description,
-    price,
-    stock,
-    expire_time
-  })
-
-  return newProduct
+  return await Product.create({type, name, description, price, stock, expire_time})
 }
 
 // UPDATE
 export const updateProduct = async (id, data) => {
-  if (!id || isNaN(id)) {
-    const error = new Error('ID inválido')
-    error.statusCode = 400
-    throw error
-  }
+  validateId(id)
 
   const product = await Product.findByPk(id)
 
   if (!product) {
     const error = new Error('Producto no encontrado')
     error.statusCode = 404
+    throw error
+  }
+
+  if (!data || Object.keys(data).length === 0) {
+    const error = new Error('No hay datos para actualizar')
+    error.statusCode = 400
     throw error
   }
 
@@ -80,12 +68,7 @@ export const updateProduct = async (id, data) => {
 
 // DELETE
 export const deleteProduct = async (id) => {
-
-  if (!id || isNaN(id)) {
-    const error = new Error('ID inválido')
-    error.statusCode = 400
-    throw error
-  }
+  validateId(id)
 
   const product = await Product.findByPk(id)
 
