@@ -19,6 +19,10 @@ app.use((err, req, res, next) => {
   })
 })
 
+app.set('views', './src/views')
+app.set('view engine', 'pug')
+
+
 const startServer = async () => {
   try {
     await sequelize.authenticate()
