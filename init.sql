@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS public.user_pokemon
     current_attack integer NOT NULL,
     current_speed integer NOT NULL,
     PRIMARY KEY (id_user_pokemon)
+    
+
 );
 
 CREATE TABLE IF NOT EXISTS public.user_store
@@ -56,6 +58,7 @@ CREATE TABLE IF NOT EXISTS public.team
     id_user integer NOT NULL,
     name character varying(50) NOT NULL,
     PRIMARY KEY (id_team)
+    
 );
 
 CREATE TABLE IF NOT EXISTS public.team_pokemon
@@ -64,6 +67,7 @@ CREATE TABLE IF NOT EXISTS public.team_pokemon
     user_pokemon_id integer NOT NULL,
     slot integer NOT NULL CHECK (slot BETWEEN 1 AND 6),
     PRIMARY KEY (team_id, slot)
+    
 );
 
 ALTER TABLE IF EXISTS public.user_pokemon
@@ -112,7 +116,7 @@ ALTER TABLE IF EXISTS public.team_pokemon
     ADD FOREIGN KEY (user_pokemon_id)
     REFERENCES public.user_pokemon (id_user_pokemon) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+    ON DELETE CASCADE;
 
 
 
