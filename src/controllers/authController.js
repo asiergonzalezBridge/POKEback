@@ -9,10 +9,31 @@ export const register = async (req, res, next) => {
   }
 }
 
+
 export const login = async (req, res, next) => {
   try {
-    const result = await authService.login(req.body)
-    res.json(result)
+    const token = await authService.login(req.body)
+    res.json({ token })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// LOGIN VISTAS (SESIÓN)
+export const loginView = async (req, res, next) => {
+  try {
+    const { email, password } = req.body
+
+    const user = await authService.loginUser(email, password)
+
+    req.session.user = {
+      id: user.id_user,
+      email: user.email,
+      rol: user.rol
+    }
+
+    res.redirect('/dashboard')
+
   } catch (error) {
     next(error)
   }
