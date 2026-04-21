@@ -75,7 +75,7 @@ ALTER TABLE IF EXISTS public.user_pokemon
     REFERENCES public.users (id_user) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE CASCADE;
-
+    
 
 ALTER TABLE IF EXISTS public.user_pokemon
     ADD FOREIGN KEY (pokemon_id_pokemon)
