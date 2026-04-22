@@ -1,17 +1,24 @@
-import * as teamModel from "../models/teamModel.js";
+import Team from "../models/teamModel.js";
 
 export const getFullTeam = async (userId) => {
-    return await teamModel.findByUserId(userId);
+    return await Team.findAll({ where: { userId } });
 };
 
 export const addPokemonToTeam = async (data) => {
-    const currentTeam = await teamModel.findByUserId(data.userId);
-    if (currentTeam.length >= 6) {
-        throw new Error("El equipo ya está lleno (máximo 6)");
+    // Validación de seguridad: Si no hay userId en el body, frenamos aquí
+    if (!data.userId) {
+        throw new Error("ID_REQUIRED");
     }
-    return await teamModel.createEntry(data);
+
+    const currentTeam = await Team.findAll({ where: { userId: data.userId } });
+    
+    if (currentTeam.length >= 6) {
+        throw new Error("TEAM_FULL");
+    }
+    
+    return await Team.create(data);
 };
 
 export const removePokemon = async (id) => {
-    return await teamModel.deleteEntry(id);
+    return await Team.destroy({ where: { id_user_pokemon: id } });
 };

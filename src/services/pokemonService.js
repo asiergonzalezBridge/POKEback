@@ -1,47 +1,27 @@
-import Pokemon from '../models/pokemon.js'
+import Pokemon from "../models/pokemonModel.js"; // O como se llame tu modelo de pokemon
 
 export const getAllPokemonsService = async () => {
-  return await Pokemon.findAll()
-}
+    return await Pokemon.findAll();
+};
 
 export const getPokemonByIdService = async (id) => {
-  const pokemon = await Pokemon.findByPk(id)
+    const pokemon = await Pokemon.findByPk(id);
+    if (!pokemon) throw new Error('NOT_FOUND');
+    return pokemon;
+};
 
-  if (!pokemon) {
-    throw new Error('NOT_FOUND')
-  }
+export const createPokemonService = async (data) => {
+    return await Pokemon.create(data);
+};
 
-  return pokemon
-}
-
-export const createPokemonService = async ({ nombre, tipo, nivel }) => {
-  return await Pokemon.create({
-    nombre,
-    tipo,
-    nivel
-  })
-}
-
-export const updatePokemonService = async (id, { nombre, tipo, nivel }) => {
-  const pokemon = await Pokemon.findByPk(id)
-
-  if (!pokemon) {
-    throw new Error('NOT_FOUND')
-  }
-
-  await pokemon.update({ nombre, tipo, nivel })
-
-  return pokemon
-}
+export const updatePokemonService = async (id, data) => {
+    const pokemon = await Pokemon.findByPk(id);
+    if (!pokemon) throw new Error('NOT_FOUND');
+    return await pokemon.update(data);
+};
 
 export const deletePokemonService = async (id) => {
-  const pokemon = await Pokemon.findByPk(id)
-
-  if (!pokemon) {
-    throw new Error('NOT_FOUND')
-  }
-
-  await pokemon.destroy()
-
-  return true
-}
+    const pokemon = await Pokemon.findByPk(id);
+    if (!pokemon) throw new Error('NOT_FOUND');
+    return await pokemon.destroy();
+};
