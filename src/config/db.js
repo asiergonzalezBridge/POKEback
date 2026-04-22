@@ -13,8 +13,17 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     port: process.env.DB_PORT || 5440,
     dialect: 'postgres',
-    logging: false
+    logging: false, // Mantiene la consola limpia
+    define: {
+      timestamps: false, // Tu SQL no tiene createdAt/updatedAt
+      underscored: true  // Ayuda a mapear nombres como user_id
+    }
   }
-)
+);
 
-export default sequelize
+// Test rápido para confirmar la conexión al arrancar
+sequelize.authenticate()
+  .then(() => console.log(' Conexión exitosa a PostgreSQL en puerto 5440'))
+  .catch(err => console.error(' Error de conexión:', err.message));
+
+export default sequelize;
