@@ -3,17 +3,27 @@ import { loginView } from '../controllers/authController.js'
 import { requireSession } from '../middlewares/sessionMiddleware.js'
 const router = Router()
 
-// FORM LOGIN (para Pug luego)
+// FORM LOGIN (
 router.get('/login', (req, res) => {
-  res.send('Formulario login') // temporal
+  res.render('login')
 })
 
 // LOGIN SESSION
 router.post('/login', loginView)
 
 // DASHBOARD protegido
-router.get('/dashboard', requireSession, (req, res) => {
-  res.send(`Bienvenido ${req.session.user.email}`)
+import Team from '../models/teamModel.js'
+
+router.get('/dashboard', requireSession, async (req, res) => {
+
+  const teams = await Team.findAll({
+    where: { id_user: req.session.user.id }
+  })
+
+  res.render('dashboard', {
+    user: req.session.user,
+    teams
+  })
 })
 
 // LOGOUT

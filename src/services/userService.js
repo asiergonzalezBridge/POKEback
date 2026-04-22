@@ -55,40 +55,34 @@ export const createUser = async ({ username, password, email, poketype }) => {
   return userSafe
 }
 
-// UPDATE
-export const updateUser = async (req, res) => {
-  try {
-    const user = await User.findByPk(req.params.id)
+// UPDATE CORREGIDO 
+export const updateUser = async (id, data) => {
+  const user = await User.findByPk(id)
 
-    if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' })
-    }
-
-    const { username, email, poketype, password } = req.body
-
-    const updatedData = {}
-
-    // SOLO CAMPOS PERMITIDOS
-    if (username) updatedData.username = username
-    if (email) updatedData.email = email
-    if (poketype) updatedData.poketype = poketype
-
-    // PASSWORD (caso especial)
-    if (password) {
-      updatedData.password = await bcrypt.hash(password, 10)
-    }
-
-    await user.update(updatedData)
-
-    // NO DEVOLVER PASSWORD
-    const userSafe = user.toJSON()
-    delete userSafe.password
-
-    res.json(userSafe)
-
-  } catch (error) {
-    res.status(500).json({ error: 'Error al actualizar usuario' })
+  if (!user) {
+    const error = new Error('Usuario no encontrado')
+    error.statusCode = 404
+    throw error
   }
+
+  const { username, email, poketype, password } = data
+
+  const updatedData = {}
+
+  if (username) updatedData.username = username
+  if (email) updatedData.email = email
+  if (poketype) updatedData.poketype = poketype
+
+  if (password) {
+    updatedData.password = await bcrypt.hash(password, 10)
+  }
+
+  await user.update(updatedData)
+
+  const userSafe = user.toJSON()
+  delete userSafe.password
+
+  return userSafe
 }
 
 // DELETE
