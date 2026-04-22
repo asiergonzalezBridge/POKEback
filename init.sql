@@ -130,7 +130,7 @@ INSERT INTO users (username, password, email, poketype, coins, rol)
 VALUES
 ('ash', '$2b$10$wH8v0K8F0l0jJcWl6y1Q5uX7b8yVQ3d6ZfJr2x4QYgKk9Z3w8kLQK', 'ash@email.com', 'fire', 200, 'user'),
 ('misty','$2b$10$wH8v0K8F0l0jJcWl6y1Q5uX7b8yVQ3d6ZfJr2x4QYgKk9Z3w8kLQK', 'misty@email.com', 'water', 150, 'user'),
-('admin', '$2b$10$jFNEpPMIC5Cb1ujJNdUxVeCuhvM9ITmAD1WT6034Bp938BosyAA2K', 'admin@email.com', 'grass', 1000, 'admin');
+('admin', 'admin', 'admin@email.com', 'grass', 1000, 'admin');
 
 -- ======================
 -- POKEMON

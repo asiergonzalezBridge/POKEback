@@ -1,4 +1,4 @@
-import Pokemon from "../models/pokemonModel.js"; // O como se llame tu modelo de pokemon
+import Pokemon from "../models/pokemonModel.js"; 
 
 export const getAllPokemonsService = async () => {
     return await Pokemon.findAll();

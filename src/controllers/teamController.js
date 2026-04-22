@@ -1,28 +1,45 @@
-// Cambiamos la ruta para que apunte a la carpeta services
-import * as TeamService from "../services/teamService.js"; 
+import * as TeamService from "../services/teamService.js";
 
-export const getTeam = async (req, res) => {
+
+export const getAllTeams = async (req, res) => {
     try {
-        const team = await TeamService.getFullTeam(req.params.userId);
-        res.json(team);
+        const teams = await TeamService.getAllTeam();
+        res.json(teams);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
-export const createTeamMember = async (req, res) => {
+export const getTeamsByUser = async (req, res) => {
     try {
-        const newMember = await TeamService.addPokemonToTeam(req.body);
-        res.status(201).json(newMember);
+        const teams = await TeamService.getFullTeam(req.params.user_id);
+        res.json(teams);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const createTeam = async (req, res) => {
+    try {
+        const { user_id, name, pokemons } = req.body;
+
+        const team = await TeamService.createTeam({
+            user_id,
+            name,
+            pokemons
+        });
+
+        res.status(201).json(team);
+
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
-export const deleteTeamMember = async (req, res) => {
+export const deleteTeam = async (req, res) => {
     try {
-        await TeamService.removePokemon(req.params.id);
-        res.json({ message: "Pokémon eliminado correctamente." });
+        await TeamService.deleteTeam(req.params.id);
+        res.json({ message: "Equipo eliminado" });
     } catch (error) {
         res.status(404).json({ error: error.message });
     }

@@ -19,7 +19,7 @@ curl -X POST http://localhost:3000/api/team -H "Content-Type: application/json" 
 curl http://localhost:3000/api/users
 curl http://localhost:3000/api/products
 curl http://localhost:3000/api/pokemon
-curl http://localhost:3000/api/team/1
+curl http://localhost:3000/api/team
 
 # --- 6. ELIMINACIÓN (DELETE) ---
 curl -X DELETE http://localhost:3000/api/team/1

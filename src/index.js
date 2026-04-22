@@ -6,7 +6,8 @@ import sequelize from './config/db.js'
 
 // 1. IMPORTANTE: Importamos el "index.js" que tienes en la carpeta routes
 // Este archivo es el que ya contiene users, team, pokemon y products.
-import apiRouter from './routes/index.js' 
+import routes from './routes/index.js'
+
 import authRoutes from './routes/authRoutes.js'
 import session from 'express-session'
 import viewRoutes from './routes/viewRoutes.js'
@@ -29,7 +30,7 @@ app.use('/', viewRoutes)
 
 app.use('/api/auth', authRoutes)
 
-app.use('/api/users', userRoutes) 
+app.use('/api', routes)
 
 app.use((err, req, res, next) => {
   console.error('❌ Error detectado:', err.message)
@@ -51,7 +52,7 @@ const startServer = async () => {
     const PORT = process.env.PORT || 3000
     app.listen(PORT, () => {
       console.log(`🚀 Servidor listo en http://localhost:${PORT}`)
-      console.log(`📡 Probando equipo 1: curl http://localhost:3000/api/team/1`)
+      
     })
 
   } catch (error) {
