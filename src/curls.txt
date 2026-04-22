@@ -1,42 +1,26 @@
 # ============================================================
-# COMANDOS CURL - SISTEMA POKÉMON (Basado en init.sql)
+# COMANDOS CURL - SISTEMA POKÉMON (CORREGIDOS)
 # ============================================================
 
-# --- 1. USUARIOS (USERS) ---
-# Crea un entrenador. Obligatorio: username, password, email, poketype.
+# --- 1. USUARIOS ---
 curl -X POST http://localhost:3000/api/users -H "Content-Type: application/json" -d "{\"username\":\"Gary\",\"password\":\"1234\",\"email\":\"gary@oak.com\",\"poketype\":\"water\"}"
 
-# Listar todos los usuarios
-curl http://localhost:3000/api/users
-
-
-# --- 2. PRODUCTOS (PRODUCTS) ---
-# Crea un objeto en la tienda. Obligatorio: type (cosmetic/pokemon/upgrade), name, price, stock.
+# --- 2. PRODUCTOS ---
 curl -X POST http://localhost:3000/api/products -H "Content-Type: application/json" -d "{\"type\":\"upgrade\",\"name\":\"Pocion\",\"price\":300,\"stock\":10}"
 
-# Listar todos los productos
-curl http://localhost:3000/api/products
+# --- 3. DICCIONARIO POKÉMON (Ruta en SINGULAR para probar) ---
+# Si este falla, prueba poniéndole la 's' al final de pokemon
+curl -X POST http://localhost:3000/api/pokemon -H "Content-Type: application/json" -d "{\"id_pokemon\":150,\"name\":\"Mewtwo\",\"type\":\"psychic\",\"sprite\":\"url_imagen\",\"evolution\":false}"
 
-
-# --- 3. DICCIONARIO POKÉMON (POKEMON) ---
-# Registra un Pokémon en la tabla maestra. Obligatorio: id_pokemon (manual), name, type, sprite, evolution (true/false).
-curl -X POST http://localhost:3000/api/pokemons -H "Content-Type: application/json" -d "{\"id_pokemon\":150,\"name\":\"Mewtwo\",\"type\":\"psychic\",\"sprite\":\"url_imagen\",\"evolution\":false}"
-
-# Listar toda la Pokedex
-curl http://localhost:3000/api/pokemons
-
-
-# --- 4. EQUIPO / COLECCIÓN (USER_POKEMON) ---
-# Añade un Pokémon a la colección de un usuario (ID 1).
+# --- 4. EQUIPO / COLECCIÓN ---
 curl -X POST http://localhost:3000/api/team -H "Content-Type: application/json" -d "{\"userId\":1,\"pokemonId\":25,\"currentHp\":100,\"currentAttack\":50,\"currentSpeed\":50}"
 
-# Ver el equipo de un usuario específico (ejemplo ID 1)
+# --- 5. CONSULTAS (GET) ---
+curl http://localhost:3000/api/users
+curl http://localhost:3000/api/products
+curl http://localhost:3000/api/pokemon
 curl http://localhost:3000/api/team/1
 
-
-# --- 5. ELIMINACIÓN (DELETE) ---
-# Borrar un Pokémon específico de la colección (usando su id_user_pokemon)
+# --- 6. ELIMINACIÓN (DELETE) ---
 curl -X DELETE http://localhost:3000/api/team/1
-
-# Borrar un producto de la tienda
 curl -X DELETE http://localhost:3000/api/products/1
