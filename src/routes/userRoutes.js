@@ -1,19 +1,23 @@
 import { Router } from 'express'
-import { verifyToken, requireAdmin} from '../middlewares/authMiddleware.js'
-import { getProfile } from '../controllers/userController.js'
+import { verifyToken, requireAdmin } from '../middlewares/authMiddleware.js'
 import {
   getUsers,
   getUserById,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getProfile
 } from '../controllers/userController.js'
 
 const router = Router()
 
+// PUBLICO
+router.post('/', createUser) // REGISTER
+
+// PRIVADO
 router.use(verifyToken)
 
-// perfil → cualquier usuario
+// perfil → cualquier usuario logueado
 router.get('/perfil', getProfile)
 
 // solo admin
