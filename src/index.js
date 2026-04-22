@@ -1,49 +1,61 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import sequelize from './config/db.js'
+import express from 'express';
+import dotenv from 'dotenv';
+import sequelize from './config/db.js';
 
-// 1. IMPORTANTE: Importamos el "index.js" que tienes en la carpeta routes
-// Este archivo es el que ya contiene users, team, pokemon y products.
-import apiRouter from './routes/index.js' 
+// Importamos el enrutador central y los modelos para asegurar que Sequelize los reconozca
+import apiRouter from './routes/index.js'; 
+import './models/teamModel.js'; 
+// Importa aquí otros modelos si es necesario (ej. ./models/userModel.js)
 
-dotenv.config()
+dotenv.config();
 
-const app = express() 
+const app = express(); 
 
-app.use(express.json()) 
+// Middleware para procesar JSON
+app.use(express.json()); 
 
-// 2. CONEXIÓN TOTAL: 
-// En lugar de conectar una por una, conectamos el apiRouter.
-// Esto activa automáticamente: /api/users, /api/team, /api/pokemon, etc.
-app.use('/api', apiRouter) 
+// Conexión de todas las rutas bajo el prefijo /api
+// Esto activa: /api/users, /api/team, /api/pokemon, /api/products
+app.use('/api', apiRouter); 
 
-// Manejo de errores (tu código original)
+// Manejador de errores global
 app.use((err, req, res, next) => {
-  console.error('❌ Error detectado:', err.message)
+  console.error('❌ Error detectado:', err.message);
   res.status(err.statusCode || 500).json({
     error: err.message || 'Error interno del servidor'
-  })
-})
+  });
+});
 
 const startServer = async () => {
   try {
-    // Conecta al puerto 5440 de Docker
-    await sequelize.authenticate()
-    console.log('✅ Base de datos conectada en puerto 5440')
+    // 1. Autenticar conexión a la base de datos
+    await sequelize.authenticate();
+    console.log('✅ Conexión a PostgreSQL exitosa (Puerto 5440)');
 
-    // Sincroniza los modelos
-    await sequelize.sync({ force: false })
-    console.log('✅ Modelos sincronizados')
+    // 2. Sincronizar tablas (force: false evita borrar datos existentes)
+    await sequelize.sync({ force: false });
+    console.log('✅ Modelos y tablas sincronizados');
 
-    const PORT = process.env.PORT || 3000
-    app.listen(PORT, () => {
-      console.log(`🚀 Servidor listo en http://localhost:${PORT}`)
-      console.log(`📡 Probando equipo 1: curl http://localhost:3000/api/team/1`)
-    })
+    // 3. Iniciar el servidor
+    const PORT = process.env.PORT || 3000;
+    const server = app.listen(PORT, () => {
+      console.log(`🚀 Servidor funcionando en http://localhost:${PORT}`);
+      console.log(`📡 Prueba rápida: curl http://localhost:${PORT}/api/team/1`);
+    });
+
+    // Manejo de errores específicos del servidor (como puerto ocupado)
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.error(`❌ El puerto ${PORT} ya está siendo usado por otro proceso.`);
+      } else {
+        console.error('❌ Error del servidor:', err);
+      }
+    });
 
   } catch (error) {
-    console.error('❌ Error al iniciar:', error)
+    console.error('❌ Error fatal al iniciar:', error.message);
+    process.exit(1);
   }
-}
+};
 
-startServer()
+startServer();
