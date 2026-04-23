@@ -2,10 +2,11 @@ CREATE TABLE IF NOT EXISTS public.users
 (
     id_user serial NOT NULL,
     username character varying(50) NOT NULL,
-    password character varying(100) NOT NULL,
+    password character varying(300) NOT NULL,
     email character varying(50) NOT NULL,
     poketype character varying(50) NOT NULL,
     coins integer DEFAULT 100,
+    rol VARCHAR(20) DEFAULT 'user',
     PRIMARY KEY (id_user)
 );
 
@@ -125,10 +126,11 @@ BEGIN;
 -- ======================
 -- USERS
 -- ======================
-INSERT INTO users (username, password, email, poketype, coins)
+INSERT INTO users (username, password, email, poketype, coins, rol)
 VALUES
-('ash', '1234', 'ash@email.com', 'fire', 200),
-('misty', '1234', 'misty@email.com', 'water', 150);
+('ash', '$2b$10$wH8v0K8F0l0jJcWl6y1Q5uX7b8yVQ3d6ZfJr2x4QYgKk9Z3w8kLQK', 'ash@email.com', 'fire', 200, 'user'),
+('misty','$2b$10$wH8v0K8F0l0jJcWl6y1Q5uX7b8yVQ3d6ZfJr2x4QYgKk9Z3w8kLQK', 'misty@email.com', 'water', 150, 'user'),
+('admin', 'admin', 'admin@email.com', 'grass', 1000, 'admin');
 
 -- ======================
 -- POKEMON
