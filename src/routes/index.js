@@ -1,0 +1,18 @@
+import { Router } from 'express';
+import userRoutes from './userRoutes.js';
+import teamRouter from './teamRouter.js';
+import pokemonRoutes from './pokemonRoutes.js';
+import productRoutes from './productsRoute.js';
+import authRoutes from './authRoutes.js';
+import userPokemonRoutes from './userPokemonRoutes.js';
+
+const router = Router();
+
+router.use('/users', userRoutes);
+router.use('/team', teamRouter);
+router.use('/pokemon', pokemonRoutes);
+router.use('/products', productRoutes);
+router.use('/auth', authRoutes);
+router.use('/userpokemon', userPokemonRoutes);
+
+export default router;

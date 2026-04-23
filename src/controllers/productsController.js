@@ -1,11 +1,9 @@
-
-
 import * as productService from '../services/productService.js'
 
 // GET ALL
 export const getProducts = async (req, res, next) => {
   try {
-    const products = await productService.getProducts()
+    const products = await productService.getAllProducts()
     res.json(products)
   } catch (error) {
     next(error)
@@ -35,11 +33,7 @@ export const createProduct = async (req, res, next) => {
 // UPDATE
 export const updateProduct = async (req, res, next) => {
   try {
-    const updatedProduct = await productService.updateProduct(
-      req.params.id,
-      req.body
-    )
-    
+    const updatedProduct = await productService.updateProduct(req.params.id, req.body)
     res.json(updatedProduct)
   } catch (error) {
     next(error)
