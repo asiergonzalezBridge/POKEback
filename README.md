@@ -1,4 +1,4 @@
-🧩 Proyecto Backend – Plataforma de Juegos y Tienda Pokémon
+🧩 POKEback – Proyecto Backend – Plataforma de Juegos y Tienda Pokémon
 📌 Descripción
 
 Este proyecto consiste en el desarrollo del backend de una plataforma donde los usuarios podrán:
