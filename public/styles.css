@@ -1,0 +1,103 @@
+/* ========== IMPORTED FONTS ========= */
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+@font-face {
+    font-family: 'PokemonFont';
+    src: url('/fonts/pokemon-solid.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ========== VARIABLES ========== */
+:root {
+    --pokemon: 'PokemonFont', sans-serif;
+    --poke-yellow: #FFCB03;
+    --poke-blue: #3C5AAC;
+    --poke-shadow: #1B407E;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: "Nunito", sans-serif;
+    color: var(--poke-shadow);
+}
+
+main {
+    padding: 0 1rem;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Exo 2", sans-serif;
+}
+
+
+
+.navbar {
+    ul {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: clamp(4.5rem, 3.857rem + 2.857vw, 6rem);
+        padding: 0 1rem;
+        list-style-type: none;
+
+        li {
+            margin-right: 0.5rem;
+            text-transform: uppercase;
+
+            a {
+                font-weight: 700;
+                color: var(--poke-blue);
+                text-decoration: none;
+            }
+        }
+
+        .logo {
+            position: absolute;
+            top: clamp(-1.5rem, -1.071rem + -1.905vw, -2.5rem);
+            left: 0.6rem;
+            margin: 0;
+            padding: 0;
+            font-family: var(--pokemon);
+            text-transform: initial;
+            font-weight: 400;
+            font-size: clamp(2rem, 1.571rem + 1.905vw, 3rem);
+            letter-spacing: 0.1rem;
+            color: var(--poke-yellow);
+            -webkit-text-stroke: clamp(0.12rem, 0.086rem + 0.152vw, 0.2rem) var(--poke-blue);
+            text-shadow: 0.4rem 0.4rem 0 var(--poke-shadow);
+
+            span {
+
+                &:nth-of-type(1) {
+                    position: relative;
+                    top: -1rem;
+                    left: -0.35rem;
+                }
+
+                &:nth-of-type(3) {
+                    position: relative;
+                    left: 0.3rem;
+                }
+            }
+        }
+    }
+}

@@ -3,12 +3,15 @@ import TeamPokemon from "../models/teamPokemonModel.js";
 import UserPokemon from "../models/userPokemonModel.js";
 import User from "../models/userModel.js";
 
+// GET ALL
 export const getAllTeam = async () => {
     return await Team.findAll();
-}
-export const getFullTeam = async (userId) => {
+};
+
+// GET TEAMS BY USER
+export const getFullTeam = async (id) => {
     return await Team.findAll({
-        where: { id_user: userId },
+        where: { id_user: id }, // 🔥 mapping limpio
         include: {
             model: TeamPokemon,
             include: {
@@ -18,12 +21,14 @@ export const getFullTeam = async (userId) => {
     });
 };
 
+// REMOVE POKEMON FROM TEAM
 export const removePokemonFromTeam = async (team_id, slot) => {
     return await TeamPokemon.destroy({
         where: { team_id, slot }
     });
 };
 
+// CREATE TEAM
 export const createTeam = async ({ user_id, name, pokemons }) => {
     
     // 1. Verificar usuario

@@ -36,7 +36,7 @@ export const register = async ({ username, email, password, poketype }) => {
   return userSafe
 }
 
-// 🔑 LOGIN BASE (reutilizable)
+// LOGIN BASE (reutilizable)
 export const loginUser = async (email, password) => {
 
   const user = await User.findOne({ where: { email } })
@@ -47,7 +47,15 @@ export const loginUser = async (email, password) => {
     throw error
   }
 
-  const validPassword = await bcrypt.compare(password, user.password)
+  let validPassword = false
+
+// si parece hash → usar bcrypt
+if (user.password.startsWith('$2b$')) {
+  validPassword = await bcrypt.compare(password, user.password)
+} else {
+  // fallback (usuarios del init.sql)
+  validPassword = password === user.password
+}
 
   if (!validPassword) {
     const error = new Error('Credenciales incorrectas')
@@ -58,7 +66,7 @@ export const loginUser = async (email, password) => {
   return user
 }
 
-// 🔐 LOGIN API (JWT)
+// LOGIN API (JWT)
 export const login = async ({ email, password }) => {
 
   if (!email || !password) {

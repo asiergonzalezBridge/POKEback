@@ -29,12 +29,14 @@ export const loginView = async (req, res, next) => {
     req.session.user = {
       id: user.id_user,
       email: user.email,
-      rol: user.rol
+      rol: user.rol,
+      username: user.username,
+      coins: user.coins 
     }
 
     res.redirect('/dashboard')
 
   } catch (error) {
-    next(error)
+    res.render('login', { error: 'Email o contraseña incorrectos' })
   }
 }
