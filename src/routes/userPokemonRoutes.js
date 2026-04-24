@@ -8,6 +8,6 @@ const router = Router();
 router.use(verifyToken);
 
 // GET pokemons de un usuario
-router.get("/:user_id", getUserPokemons);
+router.get("/:id", getUserPokemons); // 
 
 export default router;

@@ -1,13 +1,10 @@
-import UserPokemon from "../models/userPokemonModel.js";
+import * as userPokemonService from "../services/userPokemonService.js";
 
-export const getUserPokemons = async (req, res) => {
+export const getUserPokemons = async (req, res, next) => {
     try {
-        const pokemons = await UserPokemon.findAll({
-            where: { user_id_user: req.params.user_id }
-        });
-
+        const pokemons = await userPokemonService.getUserPokemons(req.params.id);
         res.json(pokemons);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        next(error);
     }
 };
