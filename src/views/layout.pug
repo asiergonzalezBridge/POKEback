@@ -1,0 +1,38 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="styles.css")
+        block links
+        block title
+            title PokéBack
+    body 
+        header  
+            block header
+            nav(class="navbar") 
+                ul 
+                    li 
+                        a(href="/", rel="noopener noreferrer")
+                            p(class="logo") PoK
+                                span é
+                                span B
+                                span ack
+                    li
+                        a(href="/store") Tienda
+                    li 
+                        a(href="/pokemon") Mis Pokémon
+                    li 
+                        a(href="/teams") Mis Equipos
+                    li 
+                        if user && user.username
+                            span Hola, #{user.username}
+                            a(href="/logout") Cerrar sesión
+                        else
+                            a(href="/login") Login
+        main
+            block content
+                h1 HOLA MUNDETE
+        footer
+            p PokeBack © 2025
+        block scripts

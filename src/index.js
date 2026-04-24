@@ -15,6 +15,8 @@ import viewRoutes from './routes/viewRoutes.js'
 const app = express() 
 
 app.use(express.json()) 
+ // Línea de Claude: Añade al usuario dentro de la tabla users
+app.use(express.urlencoded({ extended: false }))
 
 app.use(session({
   secret: process.env.JWT_SECRET,
@@ -25,6 +27,22 @@ app.use(session({
     httpOnly: true
   }
 }))
+
+// VISTAS 
+app.set('view engine', 'pug')
+app.set('views', './src/views') 
+app.use(express.static('./public'))
+
+// USUARIO DISPONIBLE EN TODAS LAS VISTAS
+app.use((req, res, next) => {
+  res.locals.user = req.session?.user || null
+  next()
+})
+
+// RUTAS
+app.get("/", (req, res) => {
+  res.render("index")
+})
 
 app.use('/', viewRoutes)
 

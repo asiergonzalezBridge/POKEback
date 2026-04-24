@@ -1,0 +1,21 @@
+extends layout
+
+block title
+    title Login - PokéBack
+
+block content
+    h1 Iniciar sesión
+
+    if error
+        p(style="color:red") #{error}
+
+    form(action="/login" method="POST")
+        label(for="email") Email
+        input(type="email" id="email" name="email" required)
+
+        label(for="password") Contraseña
+        input(type="password" id="password" name="password" required)
+
+        button(type="submit") Entrar
+
+    a(href="/register") ¿No tienes cuenta? Regístrate
