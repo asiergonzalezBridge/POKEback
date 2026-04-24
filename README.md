@@ -189,6 +189,10 @@ npm run dev
 
 ---
 
+![Tablas](/diagramas/tablas.png)
+
+---
+
 ![Flujo normal](/diagramas/flujo_normal.svg)
 
 ---
