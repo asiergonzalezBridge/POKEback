@@ -3,7 +3,8 @@ import UserPokemon from './userPokemonModel.js'
 import Team from './teamModel.js'
 import TeamPokemon from './teamPokemonModel.js'
 import Pokemon from './pokemonModel.js'
-
+import Product from './productsModel.js'
+import UserStore from './userStoreModel.js'
 // =======================
 // RELACIONES
 // =======================
@@ -52,6 +53,20 @@ UserPokemon.belongsTo(Pokemon, {
   foreignKey: 'pokemon_id_pokemon'
 })
 
+// USER → USER_STORE
+User.belongsToMany(Product, {
+  through: UserStore,
+  foreignKey: 'user_id_user'
+})
+
+Product.belongsToMany(User, {
+  through: UserStore,
+  foreignKey: 'store_id_product'
+})
+
+UserStore.belongsTo(Product, { foreignKey: 'store_id_product', as: 'product' })
+UserStore.belongsTo(User, { foreignKey: 'user_id_user' })
+
 
 // EXPORT
-export { User, UserPokemon, Team, TeamPokemon, Pokemon }
+export { User, UserPokemon, Team, TeamPokemon, Pokemon, Product, UserStore }
