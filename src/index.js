@@ -33,7 +33,7 @@ app.set('view engine', 'pug')
 app.set('views', './src/views') 
 app.use(express.static('./public'))
 
-// USUARIO DISPONIBLE EN TODAS LAS VISTAS
+// USUARIO DISPONIBLE EN TODAS LAS VISTAS 
 app.use((req, res, next) => {
   res.locals.user = req.session?.user || null
   next()

@@ -18,8 +18,8 @@ const Product = sequelize.define('Product', {
     allowNull: false,
   },
 
-   description: {
-    type: DataTypes.STRING(350), 
+  description: {
+    type: DataTypes.STRING(350),
     allowNull: true,
   },
 
@@ -36,6 +36,10 @@ const Product = sequelize.define('Product', {
   expire_time: {
     type: DataTypes.DATE,
     allowNull: true,
+  },
+  image: {
+    type: DataTypes.STRING(200),
+    allowNull: true
   },
 }, {
   tableName: 'products',

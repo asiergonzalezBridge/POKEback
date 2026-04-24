@@ -26,6 +26,12 @@ router.get('/register', (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
+    const { password, confirm_password } = req.body
+
+    if (password !== confirm_password) {
+      return res.render('register', { error: 'Las contraseñas no coinciden' })
+    }
+
     await authService.register(req.body)
     res.redirect('/login')
   } catch (error) {

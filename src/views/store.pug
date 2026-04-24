@@ -10,13 +10,15 @@ block content
 
     each product in products
         article
-        h2 #{product.name}
-        p Tipo: #{product.type}
-        p #{product.description}
-        p Precio: #{product.price} monedas
-        p Stock: #{product.stock}
-        if product.expire_time
-            p Oferta hasta: #{product.expire_time}
-        form(action="/store/buy" method="POST")
-            input(type="hidden" name="product_id" value=product.id_product)
-            button(type="submit") Comprar
+            h2 #{product.name}
+            if product.image
+                img(src=product.image alt=product.name)
+            p Tipo: #{product.type}
+            p #{product.description}
+            p Precio: #{product.price} monedas
+            p Stock: #{product.stock}
+            if product.expire_time
+               p Oferta hasta: #{product.expire_time}
+            form(action="/store/buy" method="POST")
+                input(type="hidden" name="product_id" value=product.id_product)
+                button(type="submit") Comprar
