@@ -6,7 +6,7 @@ import productRoutes from './productsRoute.js';
 import authRoutes from './authRoutes.js';
 import userPokemonRoutes from './userPokemonRoutes.js';
 import viewRoutes from './viewRoutes.js';
-
+import userStoreRoutes from './userStoreRoutes.js'
 const router = Router();
 
 router.use('/users', userRoutes);
@@ -16,5 +16,6 @@ router.use('/products', productRoutes);
 router.use('/auth', authRoutes);
 router.use('/userpokemon', userPokemonRoutes);
 router.use('/view', viewRoutes);
+router.use('/', userStoreRoutes);
 
 export default router;

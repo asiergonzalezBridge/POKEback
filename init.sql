@@ -128,9 +128,9 @@ BEGIN;
 -- ======================
 INSERT INTO users (username, password, email, poketype, coins, rol)
 VALUES
-('ash', '$2b$10$wH8v0K8F0l0jJcWl6y1Q5uX7b8yVQ3d6ZfJr2x4QYgKk9Z3w8kLQK', 'ash@email.com', 'fire', 200, 'user'),
-('misty', '$2b$10$wH8v0K8F0l0jJcWl6y1Q5uX7b8yVQ3d6ZfJr2x4QYgKk9Z3w8kLQK', 'misty@email.com', 'water', 150, 'user'),
-('test', '$2b$10$wH8v0K8F0l0jJcWl6y1Q5uX7b8yVQ3d6ZfJr2x4QYgKk9Z3w8kLQK', 'admin@email.com', 'grass', 1000, 'admin');
+('ash', '1234', 'ash@email.com', 'fire', 200, 'user'),
+('misty', '1234', 'misty@email.com', 'water', 150, 'user'),
+('test', '1234', 'test@email.com', 'grass', 1000, 'admin');
 
 -- ======================
 -- POKEMON
