@@ -1,10 +1,7 @@
 import { User, UserStore } from '../models/index.js'
 import Product from '../models/productsModel.js'
 
-/**
- * Obtiene todos los usuarios excluyendo el campo password.
- * @returns {Promise<User[]>} Lista de usuarios ordenada por ID
- */
+// Obtiene todos los usuarios excluyendo el campo password.
 export const getAllUsers = async () => {
   return await User.findAll({
     attributes: { exclude: ['password'] },
@@ -12,11 +9,7 @@ export const getAllUsers = async () => {
   })
 }
 
-/**
- * Elimina un usuario por su ID.
- * @param {number} id - ID del usuario a eliminar
- * @throws {Error} 404 si el usuario no existe
- */
+// Elimina un usuario por su ID.
 export const deleteUser = async (id) => {
   const user = await User.findByPk(id)
 
@@ -29,14 +22,7 @@ export const deleteUser = async (id) => {
   await user.destroy()
 }
 
-/**
- * Edita el poketype y las monedas de un usuario.
- * @param {number} id - ID del usuario
- * @param {Object} data - Campos a modificar
- * @param {string} data.poketype - Nuevo tipo de Pokémon
- * @param {number} data.coins - Nueva cantidad de monedas
- * @throws {Error} 404 si el usuario no existe
- */
+// Edita el poketype y las monedas de un usuario.
 export const editUser = async (id, data) => {
   const user = await User.findByPk(id)
 
@@ -52,27 +38,14 @@ export const editUser = async (id, data) => {
   })
 }
 
-/**
- * Obtiene todos los productos ordenados por ID.
- * @returns {Promise<Product[]>} Lista de productos
- */
+// Obtiene todos los productos ordenados por ID.
 export const getAllProducts = async () => {
   return await Product.findAll({
     order: [['id_product', 'ASC']]
   })
 }
 
-/**
- * Crea un nuevo producto.
- * @param {Object} data - Datos del producto
- * @param {string} data.type - Tipo: 'cosmetic', 'pokemon' o 'upgrade'
- * @param {string} data.name - Nombre del producto
- * @param {string} [data.description] - Descripción opcional
- * @param {number} data.price - Precio en monedas
- * @param {number} data.stock - Unidades disponibles
- * @param {Date} [data.expire_time] - Fecha de expiración opcional
- * @throws {Error} 400 si faltan campos obligatorios
- */
+// Crea un nuevo producto.
 export const createProduct = async (data) => {
   const { type, name, description, price, stock, expire_time } = data
 
@@ -88,12 +61,7 @@ export const createProduct = async (data) => {
   })
 }
 
-/**
- * Edita un producto existente.
- * @param {number} id - ID del producto
- * @param {Object} data - Campos a modificar (parcial)
- * @throws {Error} 404 si el producto no existe
- */
+// Edita un producto existente.
 export const editProduct = async (id, data) => {
   const product = await Product.findByPk(id)
 
@@ -106,11 +74,7 @@ export const editProduct = async (id, data) => {
   await product.update(data)
 }
 
-/**
- * Elimina un producto por su ID.
- * @param {number} id - ID del producto a eliminar
- * @throws {Error} 404 si el producto no existe
- */
+// Elimina un producto por su ID.
 export const deleteProduct = async (id) => {
   const product = await Product.findByPk(id)
 
@@ -123,10 +87,7 @@ export const deleteProduct = async (id) => {
   await product.destroy()
 }
 
-/**
- * Obtiene todas las compras de todos los usuarios.
- * @returns {Promise<UserStore[]>} Lista de compras con usuario y producto incluidos
- */
+// Obtiene todas las compras de todos los usuarios.
 export const getAllPurchases = async () => {
   return await UserStore.findAll({
     include: [

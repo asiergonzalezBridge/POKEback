@@ -1,22 +1,14 @@
 import User from '../models/userModel.js'
 import bcrypt from 'bcrypt'
 
-/**
- * Obtiene todos los usuarios excluyendo el campo password.
- * @returns {Promise<User[]>} Lista de usuarios
- */
+//Obtiene todos los usuarios excluyendo el campo password.
 export const getUsers = async () => {
   return await User.findAll({
     attributes: { exclude: ['password'] }
   })
 }
 
-/**
- * Obtiene un usuario por su ID.
- * @param {number} id - ID del usuario
- * @returns {Promise<User>} Usuario encontrado sin el campo password
- * @throws {Error} 404 si el usuario no existe
- */
+// Obtiene un usuario por su ID.
 export const getUserById = async (id) => {
   const user = await User.findByPk(id, {
     attributes: { exclude: ['password'] }
@@ -31,16 +23,7 @@ export const getUserById = async (id) => {
   return user
 }
 
-/**
- * Crea un nuevo usuario con la contraseña hasheada.
- * @param {Object} data - Datos del usuario
- * @param {string} data.username - Nombre de usuario
- * @param {string} data.password - Contraseña en texto plano
- * @param {string} data.email - Email único
- * @param {string} data.poketype - Tipo de Pokémon favorito
- * @returns {Promise<Object>} Usuario creado sin el campo password
- * @throws {Error} 400 si faltan campos o el email ya está registrado
- */
+// Crea un nuevo usuario con la contraseña hasheada.
 export const createUser = async ({ username, password, email, poketype }) => {
 
   if (!username || !password || !email.includes('@') || !poketype) {
@@ -72,14 +55,7 @@ export const createUser = async ({ username, password, email, poketype }) => {
   return userSafe
 }
 
-/**
- * Actualiza los datos de un usuario. Solo modifica los campos recibidos.
- * Si se incluye password, se hashea antes de guardar.
- * @param {number} id - ID del usuario a actualizar
- * @param {Object} data - Campos a modificar (parcial)
- * @returns {Promise<Object>} Usuario actualizado sin el campo password
- * @throws {Error} 404 si el usuario no existe
- */
+// Actualiza los datos de un usuario. Solo modifica los campos recibidos.
 export const updateUser = async (id, data) => {
   const user = await User.findByPk(id)
 
@@ -105,12 +81,7 @@ export const updateUser = async (id, data) => {
   return userSafe
 }
 
-/**
- * Elimina un usuario de la base de datos (cascade en tablas relacionadas).
- * @param {number} id - ID del usuario a eliminar
- * @returns {Promise<{message: string}>} Mensaje de confirmación
- * @throws {Error} 404 si el usuario no existe
- */
+// Elimina un usuario de la base de datos (cascade en tablas relacionadas).
 export const deleteUser = async (id) => {
   const user = await User.findByPk(id)
 

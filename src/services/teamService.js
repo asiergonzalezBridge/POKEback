@@ -3,19 +3,12 @@ import TeamPokemon from "../models/teamPokemonModel.js";
 import UserPokemon from "../models/userPokemonModel.js";
 import User from "../models/userModel.js";
 
-/**
- * Obtiene todos los equipos de la base de datos.
- * @returns {Promise<Team[]>} Lista de equipos
- */
+// Obtiene todos los equipos de la base de datos.
 export const getAllTeam = async () => {
     return await Team.findAll();
 };
 
-/**
- * Obtiene los equipos completos de un usuario, incluyendo los Pokémon de cada slot.
- * @param {number} id - ID del usuario
- * @returns {Promise<Team[]>} Equipos con sus TeamPokemons y UserPokemons anidados
- */
+// Obtiene los equipos completos de un usuario, incluyendo los Pokémon de cada slot.
 export const getFullTeam = async (id) => {
     return await Team.findAll({
         where: { id_user: id },
@@ -28,28 +21,14 @@ export const getFullTeam = async (id) => {
     });
 };
 
-/**
- * Elimina un Pokémon de un slot concreto de un equipo.
- * @param {number} team_id - ID del equipo
- * @param {number} slot - Número de slot (1-6)
- * @returns {Promise<number>} Número de registros eliminados
- */
+// Elimina un Pokémon de un slot concreto de un equipo.
 export const removePokemonFromTeam = async (team_id, slot) => {
     return await TeamPokemon.destroy({
         where: { team_id, slot }
     });
 };
 
-/**
- * Crea un equipo con sus Pokémon asignados por slot.
- * Valida que el usuario exista, que los Pokémon sean suyos y que no superen 6.
- * @param {Object} data - Datos del equipo
- * @param {number} data.user_id - ID del usuario propietario
- * @param {string} data.name - Nombre del equipo
- * @param {number[]} data.pokemons - Array de IDs de user_pokemon (1-6 elementos)
- * @returns {Promise<Team>} Equipo creado
- * @throws {Error} Si el usuario no existe, los Pokémon no le pertenecen o hay más de 6
- */
+// Crea un equipo con sus Pokémon asignados por slot.
 export const createTeam = async ({ user_id, name, pokemons }) => {
 
     const user = await User.findByPk(user_id);

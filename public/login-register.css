@@ -1,4 +1,4 @@
- .login-page .navbar ul li.nav-user a,
+.login-page .navbar ul li.nav-user a,
 .register-page .navbar ul li.nav-user a {
     background: var(--poke-yellow);
     border: 0.2rem solid var(--poke-shadow);

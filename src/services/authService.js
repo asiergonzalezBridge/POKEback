@@ -5,17 +5,8 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { User } from '../models/index.js'
 
-/**
- * Registra un nuevo usuario en la base de datos.
- * Valida los campos, comprueba si el email ya existe y hashea la contraseña.
- * @param {Object} data - Datos del nuevo usuario
- * @param {string} data.username - Nombre de usuario
- * @param {string} data.email - Email único del usuario
- * @param {string} data.password - Contraseña en texto plano
- * @param {string} data.poketype - Tipo de Pokémon favorito
- * @returns {Promise<Object>} Usuario creado sin el campo password
- * @throws {Error} 400 si faltan campos | 409 si el email ya está registrado
- */
+// Registra un nuevo usuario en la base de datos.
+// Valida los campos, comprueba si el email ya existe y hashea la contraseña.
 export const register = async ({ username, email, password, poketype }) => {
 
   if (!username || !email || !password || !poketype) {
@@ -46,14 +37,8 @@ export const register = async ({ username, email, password, poketype }) => {
   return userSafe
 }
 
-/**
- * Verifica las credenciales de un usuario. Soporta contraseñas hasheadas (bcrypt)
- * y contraseñas en texto plano (usuarios de init.sql).
- * @param {string} email - Email del usuario
- * @param {string} password - Contraseña en texto plano
- * @returns {Promise<User>} Instancia del usuario si las credenciales son válidas
- * @throws {Error} 401 si el usuario no existe o la contraseña es incorrecta
- */
+// Verifica las credenciales de un usuario. Soporta contraseñas hasheadas (bcrypt)
+// y contraseñas en texto plano (usuarios de init.sql).
 export const loginUser = async (email, password) => {
 
   const user = await User.findOne({ where: { email } })
@@ -82,14 +67,7 @@ export const loginUser = async (email, password) => {
   return user
 }
 
-/**
- * Genera un token JWT para el usuario tras validar sus credenciales.
- * @param {Object} data - Credenciales del usuario
- * @param {string} data.email - Email del usuario
- * @param {string} data.password - Contraseña en texto plano
- * @returns {Promise<string>} Token JWT firmado con expiración de 1 día
- * @throws {Error} 400 si faltan campos | 401 si las credenciales son incorrectas
- */
+// Genera un token JWT para el usuario tras validar sus credenciales.
 export const login = async ({ email, password }) => {
 
   if (!email || !password) {

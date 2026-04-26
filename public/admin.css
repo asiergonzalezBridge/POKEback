@@ -1,4 +1,4 @@
- .admin-page {
+.admin-page {
     .navbar ul li.nav-admin a {
         background: var(--poke-yellow);
         box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
@@ -208,7 +208,7 @@
     }
 }
 
-/* ── Filas de edición inline ── */
+/* ===== Filas de edición inline ===== */
 .edit-row {
     display: none;
 }

@@ -1,4 +1,4 @@
- .store-page {
+.store-page {
     .navbar ul li.nav-store a {
         background: var(--poke-yellow);
         box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);

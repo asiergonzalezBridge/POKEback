@@ -1,10 +1,6 @@
 import Product from '../models/productsModel.js'
 
-/**
- * Valida que un ID sea un número válido.
- * @param {*} id - Valor a validar
- * @throws {Error} 400 si el ID es nulo o no numérico
- */
+// Valida que un ID sea un número válido.
 const validateId = (id) => {
   if (!id || isNaN(id)) {
     const error = new Error('ID inválido')
@@ -13,20 +9,12 @@ const validateId = (id) => {
   }
 }
 
-/**
- * Obtiene todos los productos de la base de datos.
- * @returns {Promise<Product[]>} Lista de productos
- */
+// Obtiene todos los productos de la base de datos.
 export const getAllProducts = async () => {
   return await Product.findAll()
 }
 
-/**
- * Obtiene un producto por su ID.
- * @param {number} id - ID del producto
- * @returns {Promise<Product>} Producto encontrado
- * @throws {Error} 400 si el ID es inválido | 404 si no existe
- */
+// Obtiene un producto por su ID.
 export const getProductById = async (id) => {
   validateId(id)
 
@@ -41,18 +29,7 @@ export const getProductById = async (id) => {
   return product
 }
 
-/**
- * Crea un nuevo producto.
- * @param {Object} data - Datos del producto
- * @param {string} data.type - Tipo: 'cosmetic', 'pokemon' o 'upgrade'
- * @param {string} data.name - Nombre del producto
- * @param {string} [data.description] - Descripción opcional
- * @param {number} data.price - Precio en monedas
- * @param {number} data.stock - Unidades disponibles
- * @param {Date} [data.expire_time] - Fecha de expiración (productos temporales)
- * @returns {Promise<Product>} Producto creado
- * @throws {Error} 400 si faltan campos obligatorios
- */
+// Crea un nuevo producto.
 export const createProduct = async (data) => {
   const { type, name, description, price, stock, expire_time } = data
 
@@ -65,13 +42,7 @@ export const createProduct = async (data) => {
   return await Product.create({ type, name, description, price, stock, expire_time })
 }
 
-/**
- * Actualiza los datos de un producto existente.
- * @param {number} id - ID del producto a actualizar
- * @param {Object} data - Campos a modificar (parcial)
- * @returns {Promise<Product>} Producto actualizado
- * @throws {Error} 400 si el ID es inválido o no hay datos | 404 si no existe
- */
+// Actualiza los datos de un producto existente.
 export const updateProduct = async (id, data) => {
   validateId(id)
 
@@ -94,12 +65,7 @@ export const updateProduct = async (id, data) => {
   return product
 }
 
-/**
- * Elimina un producto de la base de datos.
- * @param {number} id - ID del producto a eliminar
- * @returns {Promise<{message: string}>} Mensaje de confirmación
- * @throws {Error} 400 si el ID es inválido | 404 si no existe
- */
+// Elimina un producto de la base de datos.
 export const deleteProduct = async (id) => {
   validateId(id)
 

@@ -54,7 +54,7 @@ app.use('/', viewRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api', routes)
 
-// 6. ERROR HANDLER
+// ERROR HANDLER
 app.use((err, req, res, next) => {
   console.error('❌ Error detectado:', err.message)
   res.status(err.statusCode || 500).json({

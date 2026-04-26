@@ -43,7 +43,7 @@ const User = sequelize.define('User', {
 
 }, {
   tableName: 'users',
-  timestamps: false // modificar si queremos incluir  createdAt updateAt
+  timestamps: false // modificar si queremos incluir createdAt updateAt
 })
 
 export default User

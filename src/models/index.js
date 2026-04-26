@@ -67,6 +67,5 @@ Product.belongsToMany(User, {
 UserStore.belongsTo(Product, { foreignKey: 'store_id_product', as: 'product' })
 UserStore.belongsTo(User, { foreignKey: 'user_id_user' })
 
-
 // EXPORT
 export { User, UserPokemon, Team, TeamPokemon, Pokemon, Product, UserStore }
