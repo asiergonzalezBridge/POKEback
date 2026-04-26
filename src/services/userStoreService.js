@@ -1,19 +1,24 @@
 import { UserStore, Product } from '../models/index.js'
 
-// GET STORE DE UN USUARIO
+/**
+ * Obtiene todos los productos comprados por un usuario.
+ * @param {number} userId - ID del usuario
+ * @returns {Promise<UserStore[]>} Entradas del inventario con los datos del producto incluidos
+ */
 export const getUserStore = async (userId) => {
-  const data = await UserStore.findAll({
+  return await UserStore.findAll({
     where: { user_id_user: userId },
-    include: [{
-      model: Product,
-      as: 'product'
-    }]
+    include: [{ model: Product, as: 'product' }]
   })
-
-  return data
 }
 
-// COMPRAR PRODUCTO
+/**
+ * Compra un producto para un usuario.
+ * Si ya lo tiene, incrementa la cantidad en 1. Si no, crea el registro.
+ * @param {number} userId - ID del usuario comprador
+ * @param {number} productId - ID del producto a comprar
+ * @returns {Promise<UserStore>} Registro actualizado o creado
+ */
 export const buyProduct = async (userId, productId) => {
 
   const existing = await UserStore.findOne({
@@ -29,16 +34,20 @@ export const buyProduct = async (userId, productId) => {
     return existing
   }
 
-  const newItem = await UserStore.create({
+  return await UserStore.create({
     user_id_user: userId,
     store_id_product: productId,
     quantity: 1
   })
-
-  return newItem
 }
 
-// ELIMINAR PRODUCTO
+/**
+ * Elimina un producto del inventario de un usuario.
+ * @param {number} userId - ID del usuario
+ * @param {number} productId - ID del producto a eliminar
+ * @returns {Promise<{message: string}>} Mensaje de confirmación
+ * @throws {Error} 404 si el producto no está en el inventario del usuario
+ */
 export const removeProduct = async (userId, productId) => {
   const item = await UserStore.findOne({
     where: {

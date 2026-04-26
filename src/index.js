@@ -13,6 +13,8 @@ import session from 'express-session'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import adminRoutes from './routes/adminRoutes.js'
+
 // 1. CREAR APP PRIMERO
 const app = express()
 
@@ -29,6 +31,8 @@ app.use(session({
     httpOnly: true
   }
 }))
+
+app.use('/admin', adminRoutes)
 
 // VISTAS 
 app.set('view engine', 'pug')

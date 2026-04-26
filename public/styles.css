@@ -15,6 +15,9 @@
     --poke-yellow: #FFCB03;
     --poke-blue: #3C5AAC;
     --poke-shadow: #1B407E;
+    --white: #fdfdfd;
+    --grey: #cccccc;
+    --red: #971010;
 }
 
 * {
@@ -22,22 +25,33 @@
 }
 
 html {
+    height: 100%;
     margin: 0;
     padding: 0;
-    
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     font-family: "Nunito", sans-serif;
     color: var(--poke-shadow);
+    background-image: url('/img/background-pokeback.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 main {
+    flex: 1;
     padding: 0 1rem;
 }
+
 h1,
 h2,
 h3,
@@ -45,9 +59,21 @@ h4,
 h5,
 h6 {
     font-family: "Exo 2", sans-serif;
+    text-align: center;
 }
 
+h1 {
+    text-transform: uppercase;
+}
 
+footer {
+    margin: auto 0 0 0;
+    text-align: center;
+
+    p {
+        font-size: 1.1rem !important;
+    }
+}
 
 .navbar {
     ul {
@@ -55,18 +81,65 @@ h6 {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        gap: 0.2rem;
         height: clamp(4.5rem, 3.857rem + 2.857vw, 6rem);
-        padding: 0 1rem;
+        padding: 0;
+        margin: 0;
         list-style-type: none;
+        font-size: 0.85rem;
 
         li {
+            height: auto;
             margin-right: 0.5rem;
             text-transform: uppercase;
 
-            a {
-                font-weight: 700;
+            &:first-of-type a {
+                width: 0;
+                height: 0;
+                padding: 0;
+                background: none;
+                border: none;
+            }
+        }
+
+        a {
+            padding: 0.4rem 0.8rem;
+            border: 0.2rem solid var(--poke-shadow);
+            border-radius: 3rem;
+            box-shadow: 0rem 0rem 0rem var(--poke-shadow);
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--poke-shadow);
+            background: linear-gradient(45deg, var(--poke-yellow) 50%, transparent 50%);
+            background-position: 100%;
+            background-size: 400%;
+            transition: all 0.5s ease;
+
+            &:hover {
+                border: 0.2rem solid var(--poke-blue);
+                box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
                 color: var(--poke-blue);
-                text-decoration: none;
+                background-position: 0%;
+            }
+        }
+
+        .hello-user {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+
+            a:first-child {
+                margin-right: 0.2rem;
+                padding: 0.4rem 0.8rem;
+                border: 0.1rem solid var(--poke-yellow);
+                border-radius: 3rem;
+                font-weight: 500;
+                color: var(--poke-yellow);
+                background: var(--poke-blue);
+
+                &:hover {
+                    box-shadow: none;
+                }
             }
         }
 
@@ -96,6 +169,748 @@ h6 {
                 &:nth-of-type(3) {
                     position: relative;
                     left: 0.3rem;
+                }
+            }
+        }
+    }
+}
+
+.admin-page,
+.dashboard-page,
+.pokemon-page,
+.store-page,
+.teams-page,
+.login-page,
+.register-page {
+    background-image: linear-gradient(#ffffffa4, #ffffffa4),
+        url('/img/background-pokeback.webp');
+}
+
+.index-page {
+    p {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+}
+
+.dashboard-page {
+    main {
+        margin: 0 auto;
+
+        div {
+            display: flex;
+            justify-content: center;
+            width: 64rem;
+            gap: 2rem;
+
+            section {
+                width: 28rem;
+                min-height: 30vh;
+                padding: 0 1rem 1rem;
+                border: 0.2rem solid var(--poke-shadow);
+                border-radius: 2rem;
+                font-size: 1.2rem;
+                background: var(--white);
+
+                &:first-of-type {
+                    p {
+                        font-weight: 600;
+                        text-align: center;
+                    }
+                }
+
+                &:last-of-type {
+                    a {
+                        display: block;
+                        width: fit-content;
+                        margin: 1rem auto;
+                        padding: 0.5rem 1.3rem;
+                        border: 0.2rem solid var(--poke-blue);
+                        border-radius: 3rem;
+                        color: var(--poke-blue);
+                        font-weight: 700;
+                        text-decoration: none;
+                        text-transform: uppercase;
+                        background: linear-gradient(45deg, var(--poke-yellow) 50%, transparent 50%);
+                        background-position: 100%;
+                        background-size: 400%;
+                        transition: all 0.5s ease;
+
+                        &:hover {
+                            background-position: 0%;
+                            box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.admin-page {
+    .navbar ul li.nav-admin a {
+        background: var(--poke-yellow);
+        box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+    }
+
+    .admin-section {
+        margin-bottom: 3rem;
+
+        h2,
+        h3 {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--white);
+        border-radius: 1.5rem;
+        overflow: hidden;
+        border: 0.2rem solid var(--poke-blue);
+
+        th,
+        td {
+            padding: 0.6rem 1rem;
+            text-align: left;
+            font-size: 0.9rem;
+            border-bottom: 0.1rem solid #e0e0e0;
+        }
+
+        th {
+            background: var(--poke-blue);
+            color: var(--white);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+
+
+
+
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:not(.edit-row):hover td {
+            background: #dce6ff;
+        }
+    }
+
+    .badge {
+        padding: 0.2rem 0.8rem;
+        border-radius: 3rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+
+        &--admin {
+            background: var(--poke-yellow);
+            color: var(--poke-shadow);
+        }
+
+        &--user {
+            background: #e0e0e0;
+            color: var(--poke-shadow);
+        }
+    }
+
+    .btn-edit,
+    .btn-delete {
+        border-radius: 3rem;
+        font-size: 0.8rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        background: var(--white);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+        padding: 0.3rem 1.2rem;
+        margin-bottom: 0.4rem;
+        border: 0.15rem solid var(--poke-blue);
+        color: var(--poke-blue);
+
+        &:hover {
+            background: var(--poke-blue);
+            color: var(--white);
+        }
+    }
+
+    .btn-delete {
+        padding: 0.3rem 0.8rem;
+        border: 0.15rem solid var(--red);
+        color: var(--red);
+
+        &:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+    }
+
+    .admin-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 1rem;
+        background: var(--white);
+        border: 0.2rem solid var(--poke-blue);
+        border-radius: 1.5rem;
+
+        input,
+        select {
+            padding: 0.5rem 0.8rem;
+            border: 0.15rem solid var(--poke-blue);
+            border-radius: 3rem;
+            font-family: "Nunito", sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+
+            &:focus {
+                box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+            }
+        }
+
+        button {
+            padding: 0.5rem 1.2rem;
+            border: 0.15rem solid var(--poke-shadow);
+            border-radius: 3rem;
+            background: var(--poke-yellow);
+            font-family: "Nunito", sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+            }
+        }
+    }
+
+    .inline-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+
+        input,
+        select {
+            padding: 0.4rem 0.8rem;
+            border: 0.15rem solid var(--poke-blue);
+            border-radius: 3rem;
+            font-family: "Nunito", sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+
+            &:focus {
+                box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+            }
+        }
+
+        button[type="submit"] {
+            padding: 0.4rem 1rem;
+            border: 0.15rem solid var(--poke-shadow);
+            border-radius: 3rem;
+            background: var(--poke-yellow);
+            font-family: "Nunito", sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+            }
+        }
+
+        .btn-cancel {
+            padding: 0.4rem 1rem;
+            border: 0.15rem solid var(--poke-shadow);
+            border-radius: 3rem;
+            background: var(--white);
+            font-family: "Nunito", sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+            }
+        }
+    }
+}
+
+/* ── Filas de edición inline en tablas de admin ── */
+.edit-row {
+    display: none;
+}
+
+.edit-row.edit-row--visible {
+    display: table-row;
+}
+
+.edit-row td {
+    background: #f0f4ff;
+    padding: 0.8rem 1rem;
+}
+
+.pokemon-page {
+    .navbar ul li.nav-pokemon a {
+        background: var(--poke-yellow);
+        box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+    }
+
+    article {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.3rem 1rem;
+        margin-bottom: 1rem;
+        border: 0.2rem solid var(--poke-shadow);
+        border-radius: 1.5rem;
+        background: var(--white);
+
+        h2 {
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.15rem;
+        }
+    }
+
+    .filter-sort {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+
+        a {
+            padding: 0.4rem 1.2rem;
+            border: 0.2rem solid var(--poke-shadow);
+            border-radius: 3rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: var(--poke-shadow);
+            background: var(--white);
+            transition: all 0.3s ease;
+
+            &:hover,
+            &.active {
+                background: var(--poke-blue);
+                color: var(--white);
+                border-color: var(--poke-shadow);
+                box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+            }
+        }
+    }
+}
+
+.store-page {
+    .navbar ul li.nav-store a {
+        background: var(--poke-yellow);
+        box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+    }
+
+    p {
+        margin: 0 0 1rem;
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .products-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+
+        article {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 20.75rem;
+            padding: 1rem;
+            border-radius: 2rem;
+            border: 0.3rem solid var(--poke-blue);
+            background: #ffffffcc;
+
+            img {
+                order: -1;
+                max-width: 18.75rem;
+                aspect-ratio: 1 / 1;
+                border-radius: 1rem;
+            }
+
+            h2 {
+                margin: 0.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+                margin: 0.1rem 0;
+            }
+
+            form {
+                display: none;
+            }
+        }
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 2rem 0;
+
+        a,
+        span.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.5rem;
+            border-radius: 3rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--poke-shadow);
+            text-decoration: none;
+            background: var(--white);
+            transition: all 0.3s ease;
+
+            &:first-child,
+            &:last-child {
+                padding: 0 1rem;
+            }
+        }
+
+        span.active,
+        a:not(:first-child):not(:last-child) {
+            width: 2.5rem;
+        }
+
+        span.active {
+            background: var(--poke-yellow);
+            border-color: var(--poke-shadow);
+            cursor: pointer;
+        }
+
+        a:hover {
+            color: var(--poke-yellow);
+            background: var(--poke-blue);
+        }
+    }
+
+    .store-filters {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        .filter-types {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            a {
+                padding: 0.4rem 1.2rem;
+                border: 0.2rem solid var(--poke-shadow);
+                border-radius: 3rem;
+                font-weight: 700;
+                font-size: 0.85rem;
+                text-decoration: none;
+                color: var(--poke-shadow);
+                background: var(--white);
+                transition: all 0.3s ease;
+
+                &:hover,
+                &.active {
+                    background: var(--poke-yellow);
+                    border-color: var(--poke-shadow);
+                    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                }
+            }
+        }
+
+        .filter-price {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            input {
+                width: 7rem;
+                padding: 0.4rem 0.8rem;
+                border: 0.2rem solid var(--poke-shadow);
+                border-radius: 3rem;
+                font-family: "Nunito", sans-serif;
+                font-size: 0.85rem;
+                text-align: center;
+                outline: none;
+                transition: all 0.3s ease;
+
+                &:hover,
+                &:focus {
+                    border-color: var(--poke-blue);
+                    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                }
+            }
+
+            button {
+                padding: 0.4rem 1.2rem;
+                border: 0.2rem solid var(--poke-shadow);
+                border-radius: 3rem;
+                font-family: "Nunito", sans-serif;
+                font-weight: 700;
+                font-size: 0.85rem;
+                background: var(--poke-yellow);
+                color: var(--poke-shadow);
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                }
+            }
+
+            a.reset-price {
+                padding: 0.4rem 0.8rem;
+                border: 0.2rem solid var(--poke-shadow);
+                border-radius: 3rem;
+                font-weight: 700;
+                font-size: 0.85rem;
+                text-decoration: none;
+                color: var(--poke-shadow);
+                background: var(--white);
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: var(--poke-yellow);
+                    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                }
+            }
+        }
+
+        .filter-sort {
+            display: flex;
+            gap: 0.5rem;
+
+            a {
+                padding: 0.4rem 1.2rem;
+                border: 0.2rem solid var(--poke-shadow);
+                border-radius: 3rem;
+                font-weight: 700;
+                font-size: 0.85rem;
+                text-decoration: none;
+                color: var(--poke-shadow);
+                background: var(--white);
+                transition: all 0.3s ease;
+
+                &:hover,
+                &.active {
+                    background: var(--poke-blue);
+                    color: var(--white);
+                    border-color: var(--poke-shadow);
+                    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                }
+            }
+        }
+    }
+}
+
+.teams-page {
+    .navbar ul li.nav-teams a {
+        background: var(--poke-yellow);
+        box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+    }
+
+    article {
+        ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 30%;
+                padding: 1rem;
+                border: 0.2rem solid var(--poke-shadow);
+                border-radius: 1.8rem;
+                background: var(--white);
+
+                span {
+                    &:nth-of-type(1) {
+                        text-transform: uppercase;
+                        font-weight: 600;
+                    }
+
+                    &:nth-of-type(2) {
+                        text-transform: uppercase;
+                        font-weight: 700;
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.login-page .navbar ul li.nav-user a,
+.register-page .navbar ul li.nav-user a {
+    background: var(--poke-yellow);
+    border: 0.2rem solid var(--poke-shadow);
+    color: var(--poke-shadow);
+    font-weight: 700;
+    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+}
+
+.login-page,
+.register-page {
+
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1+p {
+            padding: 0.4rem 1.2rem;
+            border: 0.2rem solid var(--red);
+            border-radius: 3rem;
+            font-weight: 700;
+            color: var(--red) !important;
+            text-transform: uppercase;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+            max-width: 30rem;
+            padding: 1rem 1.5rem 2rem 1.5rem;
+            border: 0.3rem solid var(--poke-blue);
+            border-radius: 2rem;
+            background: var(--white);
+
+            label,
+            input,
+            button,
+            select {
+                border-radius: 3rem;
+                text-align: center;
+            }
+
+            input,
+            select,
+            button {
+                padding: 0.6rem;
+                font-size: 1.2rem;
+                font-family: "Nunito", sans-serif;
+                border: 0.15rem solid var(--poke-blue);
+                outline: none;
+                cursor: pointer;
+                transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            }
+
+            input,
+            select {
+                margin-bottom: 0.3rem;
+            }
+
+            label,
+            button {
+                text-transform: uppercase;
+                font-weight: 900;
+                color: var(--poke-shadow);
+            }
+
+            input {
+                color: var(--grey);
+
+                &::placeholder {
+                    color: var(--grey);
+                    font-size: 1.2rem;
+                }
+
+                &:focus {
+                    color: var(--poke-blue);
+                    border-color: var(--poke-blue);
+                }
+
+                &:hover {
+                    border-color: var(--poke-blue);
+                    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                }
+            }
+
+            select {
+                color: var(--grey);
+
+                &:focus {
+                    color: var(--poke-blue);
+                    border-color: var(--poke-blue);
+                }
+
+                &:hover {
+                    border-color: var(--poke-blue);
+                    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                }
+
+                option {
+                    color: var(--poke-shadow);
+                }
+            }
+
+            button {
+                margin-top: 1rem;
+                background: var(--poke-yellow);
+                border: 0.15rem solid var(--poke-blue);
+                cursor: pointer;
+
+                &:hover {
+                    border-color: var(--poke-blue);
+                    box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+                }
+            }
+
+            #poketype {
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                color: var(--poke-blue);
+                padding-right: 2rem;
+                background-image: url("img/arrow-icon.png");
+                background-repeat: no-repeat;
+                background-position: right 1rem center;
+            }
+
+            .form-link {
+                margin-top: 0.5rem;
+                text-align: center;
+                font-size: 0.9rem;
+
+                a {
+                    color: var(--poke-blue);
+                    font-weight: 700;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }

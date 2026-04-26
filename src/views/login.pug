@@ -1,5 +1,8 @@
 extends layout
 
+block variables
+    - var pageClass = 'login-page'
+
 block title
     title Login - PokéBack
 
@@ -11,11 +14,13 @@ block content
 
     form(action="/login" method="POST")
         label(for="email") Email
-        input(type="email" id="email" name="email" required)
+        input(type="email" id="email" name="email" placeholder="explorador@mail.com" autocomplete="off" required)
 
         label(for="password") Contraseña
-        input(type="password" id="password" name="password" required)
+        input(type="password" id="password" name="password" placeholder="••••••••" autocomplete="off" required)
 
         button(type="submit") Entrar
 
-    a(href="/register") ¿No tienes cuenta? Regístrate
+        span.form-link
+            | ¿No tienes cuenta? 
+            a(href="/register") Regístrate
