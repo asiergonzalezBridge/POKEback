@@ -37,6 +37,24 @@ El backend seguirá una arquitectura basada en:
 Estructura prevista:
 
 ```
+DOCS/
+├── diagramas/
+│   ├── flujo_admin.svg
+│   ├── flujo_normal.svg
+│   ├── tablas.png
+├── POKEback_Memoria.pdf
+├── README.md
+public/
+├── fonts/
+│   ├── pokemon-solid.ttf
+├── styles.css
+├── admin.css
+├── dashboard.css
+├── index.css
+├── login-register.css
+├── pokemon.css
+├── store.css
+├── teams.css
 src/
 ├── config/
 │   ├── db.js                # Conexión Sequelize
@@ -47,6 +65,7 @@ src/
 │   ├── productsController.js
 │   ├── teamController.js
 │   ├── userController.js
+│   ├── userPokemonController.js
 │   ├── userStoreController.js
 ├── middlewares/             # Componentes Clave
 │   ├── authMiddelware.js    # JWT 
