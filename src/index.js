@@ -18,8 +18,8 @@ import adminRoutes from './routes/adminRoutes.js'
 // 1. CREAR APP PRIMERO
 const app = express()
 
-app.use(express.json()) 
- // Línea de Claude: Añade al usuario dentro de la tabla users
+app.use(express.json())
+// Línea de Claude: Añade al usuario dentro de la tabla users
 app.use(express.urlencoded({ extended: false }))
 
 app.use(session({
@@ -36,7 +36,7 @@ app.use('/admin', adminRoutes)
 
 // VISTAS 
 app.set('view engine', 'pug')
-app.set('views', './src/views') 
+app.set('views', './src/views')
 app.use(express.static('./public'))
 
 // USUARIO DISPONIBLE EN TODAS LAS VISTAS 
