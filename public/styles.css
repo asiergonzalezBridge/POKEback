@@ -40,11 +40,19 @@ body {
     margin: 0 auto;
     font-family: "Nunito", sans-serif;
     color: var(--poke-shadow);
-    background-image: url('/img/background-pokeback.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/img/background-pokeback.webp');
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+    }
 }
 
 main {
@@ -75,14 +83,53 @@ footer {
     }
 }
 
+/* ========== HEADER ========== */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    height: clamp(4.5rem, 3.857rem + 2.857vw, 6rem);
+}
+
+.header-logo {
+    a {
+        text-decoration: none;
+    }
+
+    .logo {
+        margin: 0;
+        padding: 0;
+        font-family: var(--pokemon);
+        text-transform: initial;
+        font-weight: 400;
+        font-size: clamp(2rem, 1.571rem + 1.905vw, 3rem);
+        letter-spacing: 0.1rem;
+        color: var(--poke-yellow);
+        -webkit-text-stroke: clamp(0.12rem, 0.086rem + 0.152vw, 0.2rem) var(--poke-blue);
+        text-shadow: 0.4rem 0.4rem 0 var(--poke-shadow);
+
+        span {
+            &:nth-of-type(1) {
+                position: relative;
+                top: -1rem;
+                left: -0.35rem;
+            }
+
+            &:nth-of-type(3) {
+                position: relative;
+                left: 0.3rem;
+            }
+        }
+    }
+}
+
+/* ========== NAVBAR ========== */
 .navbar {
     ul {
-        position: relative;
         display: flex;
-        justify-content: flex-end;
         align-items: center;
         gap: 0.2rem;
-        height: clamp(4.5rem, 3.857rem + 2.857vw, 6rem);
         padding: 0;
         margin: 0;
         list-style-type: none;
@@ -92,14 +139,6 @@ footer {
             height: auto;
             margin-right: 0.5rem;
             text-transform: uppercase;
-
-            &:first-of-type a {
-                width: 0;
-                height: 0;
-                padding: 0;
-                background: none;
-                border: none;
-            }
         }
 
         a {
@@ -142,39 +181,52 @@ footer {
                 }
             }
         }
-
-        .logo {
-            position: absolute;
-            top: clamp(-1.5rem, -1.071rem + -1.905vw, -2.5rem);
-            left: 0.6rem;
-            margin: 0;
-            padding: 0;
-            font-family: var(--pokemon);
-            text-transform: initial;
-            font-weight: 400;
-            font-size: clamp(2rem, 1.571rem + 1.905vw, 3rem);
-            letter-spacing: 0.1rem;
-            color: var(--poke-yellow);
-            -webkit-text-stroke: clamp(0.12rem, 0.086rem + 0.152vw, 0.2rem) var(--poke-blue);
-            text-shadow: 0.4rem 0.4rem 0 var(--poke-shadow);
-
-            span {
-
-                &:nth-of-type(1) {
-                    position: relative;
-                    top: -1rem;
-                    left: -0.35rem;
-                }
-
-                &:nth-of-type(3) {
-                    position: relative;
-                    left: 0.3rem;
-                }
-            }
-        }
     }
 }
 
+/* ========== HAMBURGER ========== */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.4rem;
+    background: var(--white);
+    border: 0.2rem solid var(--poke-shadow);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    span {
+        display: block;
+        width: 100%;
+        height: 0.2rem;
+        background: var(--poke-shadow);
+        border-radius: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    &:hover {
+        background: var(--poke-yellow);
+        box-shadow: 0.2rem 0.3rem 0rem var(--poke-shadow);
+    }
+
+    &--open span:nth-child(1) {
+        transform: translateY(0.55rem) rotate(45deg);
+    }
+
+    &--open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    &--open span:nth-child(3) {
+        transform: translateY(-0.55rem) rotate(-45deg);
+    }
+}
+
+/* ========== PÁGINAS ========== */
 .admin-page,
 .dashboard-page,
 .pokemon-page,
@@ -182,8 +234,16 @@ footer {
 .teams-page,
 .login-page,
 .register-page {
-    background-image: linear-gradient(#ffffffa4, #ffffffa4),
-        url('/img/background-pokeback.webp');
+    &::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffffa4;
+        z-index: -1;
+    }
 }
 
 .index-page {
@@ -263,6 +323,12 @@ footer {
         }
     }
 
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        border-radius: 1.5rem;
+    }
+
     .admin-table {
         width: 100%;
         border-collapse: separate;
@@ -288,10 +354,13 @@ footer {
             font-size: 0.8rem;
         }
 
+        tbody tr:not(.edit-row):nth-child(odd) td {
+            background: var(--white);
+        }
 
-
-
-
+        tbody tr:not(.edit-row):nth-child(even) td {
+            background: #eeeeee;
+        }
 
         tr:last-child td {
             border-bottom: none;
@@ -780,7 +849,6 @@ footer {
 
 .login-page,
 .register-page {
-
     main {
         display: flex;
         flex-direction: column;
@@ -914,5 +982,69 @@ footer {
                 }
             }
         }
+    }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 968px) {
+    header {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 0.8rem 1rem;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .navbar {
+        width: 100%;
+
+        ul {
+            flex-direction: column;
+            align-items: stretch;
+            max-height: 0;
+            overflow: hidden;
+            gap: 0.5rem;
+            padding: 0 1rem;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+
+            li {
+                width: 100%;
+                margin-right: 0;
+
+                a {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+
+            .hello-user {
+                flex-direction: column;
+                width: 100%;
+
+                a:first-child,
+                a:last-child {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+
+        &.navbar--open ul {
+            max-height: 30rem;
+            padding: 0.5rem 1rem 1rem;
+        }
+    }
+
+    .table-wrapper {
+        border: 0.2rem solid var(--poke-blue);
+        -webkit-overflow-scrolling: touch;
+
+        table {
+            border: 0.2rem solid transparent!important;
+        }
+
     }
 }

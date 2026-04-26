@@ -32,8 +32,19 @@ router.post('/register', async (req, res) => {
       return res.render('register', { error: 'Las contraseñas no coinciden' })
     }
 
-    await authService.register(req.body)
-    res.redirect('/login')
+    const newUser = await authService.register(req.body)
+
+    // Iniciar sesión automáticamente tras el registro
+    req.session.user = {
+      id: newUser.id_user,
+      email: newUser.email,
+      rol: newUser.rol,
+      username: newUser.username,
+      coins: newUser.coins
+    }
+
+    res.redirect('/dashboard')
+
   } catch (error) {
     res.render('register', { error: error.message })
   }

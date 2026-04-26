@@ -11,84 +11,84 @@ block content
 
     section.admin-section
         h2 Usuarios registrados
-
-        table.admin-table
-            thead
-                tr
-                    th ID
-                    th Usuario
-                    th Email
-                    th Tipo
-                    th Monedas
-                    th Rol
-                    th Acciones
-            tbody
-                each u in users
+        div.table-wrapper
+            table.admin-table
+                thead
                     tr
-                        td #{u.id_user}
-                        td #{u.username}
-                        td #{u.email}
-                        td #{u.poketype}
-                        td #{u.coins}
-                        td
-                            span.badge(class=u.rol === 'admin' ? 'badge--admin' : 'badge--user') #{u.rol}
-                        td.actions
-                            button.btn-edit(type="button" onclick=`toggleEdit('user-${u.id_user}')`) Editar
-                            if u.rol !== 'admin'
-                                form(action=`/admin/users/${u.id_user}/delete` method="POST")
-                                    button.btn-delete(type="submit") Eliminar
-                    tr.edit-row(id=`user-${u.id_user}`)
-                        td(colspan="7")
-                            form.inline-form(action=`/admin/users/${u.id_user}/edit` method="POST")
-                                select(name="poketype")
-                                    option(value="fire" selected=u.poketype === 'fire') Fuego
-                                    option(value="water" selected=u.poketype === 'water') Agua
-                                    option(value="grass" selected=u.poketype === 'grass') Planta
-                                    option(value="electric" selected=u.poketype === 'electric') Eléctrico
-                                    option(value="psychic" selected=u.poketype === 'psychic') Psíquico
-                                input(type="number" name="coins" value=u.coins placeholder="Monedas" min="0")
-                                button(type="submit") Guardar
-                                button.btn-cancel(type="button" onclick=`toggleEdit('user-${u.id_user}')`) Cancelar
+                        th ID
+                        th Usuario
+                        th Email
+                        th Tipo
+                        th Monedas
+                        th Rol
+                        th Acciones
+                tbody
+                    each u in users
+                        tr
+                            td #{u.id_user}
+                            td #{u.username}
+                            td #{u.email}
+                            td #{u.poketype}
+                            td #{u.coins}
+                            td
+                                span.badge(class=u.rol === 'admin' ? 'badge--admin' : 'badge--user') #{u.rol}
+                            td.actions
+                                button.btn-edit(type="button" onclick=`toggleEdit('user-${u.id_user}')`) Editar
+                                if u.rol !== 'admin'
+                                    form(action=`/admin/users/${u.id_user}/delete` method="POST")
+                                        button.btn-delete(type="submit") Eliminar
+                        tr.edit-row(id=`user-${u.id_user}`)
+                            td(colspan="7")
+                                form.inline-form(action=`/admin/users/${u.id_user}/edit` method="POST")
+                                    select(name="poketype")
+                                        option(value="fire" selected=u.poketype === 'fire') Fuego
+                                        option(value="water" selected=u.poketype === 'water') Agua
+                                        option(value="grass" selected=u.poketype === 'grass') Planta
+                                        option(value="electric" selected=u.poketype === 'electric') Eléctrico
+                                        option(value="psychic" selected=u.poketype === 'psychic') Psíquico
+                                    input(type="number" name="coins" value=u.coins placeholder="Monedas" min="0")
+                                    button(type="submit") Guardar
+                                    button.btn-cancel(type="button" onclick=`toggleEdit('user-${u.id_user}')`) Cancelar
 
     section.admin-section
         h2 Productos
-
-        table.admin-table
-            thead
-                tr
-                    th ID
-                    th Nombre
-                    th Tipo
-                    th Precio
-                    th Stock
-                    th Caduca
-                    th Acciones
-            tbody
-                each product in products
+        div.table-wrapper
+            table.admin-table
+                thead
                     tr
-                        td #{product.id_product}
-                        td #{product.name}
-                        td #{product.type}
-                        td #{product.price}
-                        td #{product.stock}
-                        td #{product.expire_time ? new Date(product.expire_time).toISOString().split('T')[0] : '—'}
-                        td.actions
-                            button.btn-edit(type="button" onclick=`toggleEdit('product-${product.id_product}')`) Editar
-                            form(action=`/admin/products/${product.id_product}/delete` method="POST")
-                                button.btn-delete(type="submit") Eliminar
-                    tr.edit-row(id=`product-${product.id_product}`)
-                        td(colspan="7")
-                            form.inline-form(action=`/admin/products/${product.id_product}/edit` method="POST")
-                                input(type="text" name="name" value=product.name placeholder="Nombre" required)
-                                select(name="type")
-                                    option(value="cosmetic" selected=product.type === 'cosmetic') Cosmético
-                                    option(value="pokemon" selected=product.type === 'pokemon') Pokémon
-                                    option(value="upgrade" selected=product.type === 'upgrade') Mejora
-                                input(type="number" name="price" value=product.price placeholder="Precio" step="0.01" required)
-                                input(type="number" name="stock" value=product.stock placeholder="Stock" required)
-                                input(type="date" name="expire_time" value=product.expire_time ? new Date(product.expire_time).toISOString().split('T')[0] : '')
-                                button(type="submit") Guardar
-                                button.btn-cancel(type="button" onclick=`toggleEdit('product-${product.id_product}')`) Cancelar
+                        th ID
+                        th Nombre
+                        th Tipo
+                        th Precio
+                        th Stock
+                        th Caduca
+                        th Acciones
+                tbody
+                    each product in products
+                        tr
+                            td #{product.id_product}
+                            td #{product.name}
+                            td #{product.type}
+                            td #{product.price}
+                            td #{product.stock}
+                            td #{product.expire_time ? new Date(product.expire_time).toISOString().split('T')[0] : '—'}
+                            td.actions
+                                button.btn-edit(type="button" onclick=`toggleEdit('product-${product.id_product}')`) Editar
+                                form(action=`/admin/products/${product.id_product}/delete` method="POST")
+                                    button.btn-delete(type="submit") Eliminar
+                        tr.edit-row(id=`product-${product.id_product}`)
+                            td(colspan="7")
+                                form.inline-form(action=`/admin/products/${product.id_product}/edit` method="POST")
+                                    input(type="text" name="name" value=product.name placeholder="Nombre" required)
+                                    select(name="type")
+                                        option(value="cosmetic" selected=product.type === 'cosmetic') Cosmético
+                                        option(value="pokemon" selected=product.type === 'pokemon') Pokémon
+                                        option(value="upgrade" selected=product.type === 'upgrade') Mejora
+                                    input(type="number" name="price" value=product.price placeholder="Precio" step="0.01" required)
+                                    input(type="number" name="stock" value=product.stock placeholder="Stock" required)
+                                    input(type="date" name="expire_time" value=product.expire_time ? new Date(product.expire_time).toISOString().split('T')[0] : '')
+                                    button(type="submit") Guardar
+                                    button.btn-cancel(type="button" onclick=`toggleEdit('product-${product.id_product}')`) Cancelar
 
         h3 Añadir producto
 

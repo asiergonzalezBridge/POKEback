@@ -1,92 +1,56 @@
-import { User } from '../models/index.js'
-import Product from '../models/productsModel.js'
+import * as adminService from '../services/adminService.js'
 
-/**
- * Renderiza el panel de administración con todos los usuarios y productos.
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- */
-export const getAdminPanel = async (req, res) => {
+export const getAdminPanel = async (req, res, next) => {
   try {
-    const users = await User.findAll({
-      attributes: { exclude: ['password'] },
-      order: [['id_user', 'ASC']]
-    })
-
-    const products = await Product.findAll({
-      order: [['id_product', 'ASC']]
-    })
-
+    const users = await adminService.getAllUsers()
+    const products = await adminService.getAllProducts()
     res.render('admin', { users, products, user: req.session.user })
   } catch (error) {
-    res.status(500).send('Error al cargar el panel de administración')
+    next(error)
   }
 }
 
-/**
- * Edita el tipo y las monedas de un usuario desde el panel admin.
- */
-export const editUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
-    if (user) await user.update({
-      poketype: req.body.poketype,
-      coins: parseInt(req.body.coins)
-    })
+    await adminService.deleteUser(req.params.id)
     res.redirect('/admin')
   } catch (error) {
-    res.status(500).send('Error al editar el usuario')
+    next(error)
   }
 }
 
-/**
- * Elimina un usuario por su ID.
- */
-export const deleteUser = async (req, res) => {
+export const editUser = async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
-    if (user) await user.destroy()
+    await adminService.editUser(req.params.id, req.body)
     res.redirect('/admin')
   } catch (error) {
-    res.status(500).send('Error al eliminar el usuario')
+    next(error)
   }
 }
 
-/**
- * Crea un nuevo producto desde el panel admin.
- */
-export const createProduct = async (req, res) => {
+export const createProduct = async (req, res, next) => {
   try {
-    const { type, name, description, price, stock, expire_time } = req.body
-    await Product.create({ type, name, description, price, stock, expire_time: expire_time || null })
+    await adminService.createProduct(req.body)
     res.redirect('/admin')
   } catch (error) {
-    res.status(500).send('Error al crear el producto')
+    next(error)
   }
 }
 
-/**
- * Edita un producto existente desde el panel admin.
- */
-export const editProduct = async (req, res) => {
+export const editProduct = async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id)
-    if (product) await product.update(req.body)
+    await adminService.editProduct(req.params.id, req.body)
     res.redirect('/admin')
   } catch (error) {
-    res.status(500).send('Error al editar el producto')
+    next(error)
   }
 }
 
-/**
- * Elimina un producto por su ID.
- */
-export const deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id)
-    if (product) await product.destroy()
+    await adminService.deleteProduct(req.params.id)
     res.redirect('/admin')
   } catch (error) {
-    res.status(500).send('Error al eliminar el producto')
+    next(error)
   }
 }
