@@ -146,23 +146,23 @@ VALUES
 -- ======================
 -- PRODUCTS (TIENDA)
 -- ======================
-INSERT INTO products (type, name, description, price, stock, expire_time)
+INSERT INTO products (type, name, description, price, stock, expire_time, image)
 VALUES
 
 -- 🎨 COSMÉTICOS
-('cosmetic', 'Gorra Pikachu', 'Objeto estético para avatar', 20.00, 50, NULL),
-('cosmetic', 'Fondo volcán', 'Fondo animado tipo fuego', 35.00, 30, NULL),
+('cosmetic', 'Gorra Pikachu', 'Objeto estético para avatar', 20.00, 50, NULL, 'gorra-pikachu.png'),
+('cosmetic', 'Fondo volcán', 'Fondo animado tipo fuego', 35.00, 30, NULL, 'fondo-volcan.png'),
 
 -- 🐱 POKEMON
-('pokemon', 'Charmander', 'Pokémon tipo fuego', 100.00, 10, NULL),
-('pokemon', 'Squirtle', 'Pokémon tipo agua', 100.00, 10, NULL),
+('pokemon', 'Charmander', 'Pokémon tipo fuego', 100.00, 10, NULL, 'charmander.png'),
+('pokemon', 'Squirtle', 'Pokémon tipo agua', 100.00, 10, NULL, 'squirtle.png'),
 
 -- 💊 MEJORAS
-('upgrade', 'Mejora HP +20', 'Aumenta vida permanentemente', 50.00, 100, NULL),
-('upgrade', 'Mejora Attack +10', 'Aumenta ataque permanentemente', 60.00, 100, NULL),
+('upgrade', 'Mejora HP +20', 'Aumenta vida permanentemente', 50.00, 100, NULL, 'mejora-20-hp.png'),
+('upgrade', 'Mejora Attack +10', 'Aumenta ataque permanentemente', 60.00, 100, NULL, 'mejora-10-attack.png'),
 
 -- ⏳ TEMPORALES
-('upgrade', 'Boost ataque +30', 'Mejora fuerte limitada', 120.00, 10, '2026-05-01');
+('upgrade', 'Boost ataque +30', 'Mejora fuerte limitada', 120.00, 10, '2026-05-01', 'mejora-30-boost-attack.png');
 
 -- ======================
 -- USER_POKEMON (colección)
