@@ -28,6 +28,7 @@
 
             img {
                 order: -1;
+                width: 100%;
                 max-width: 18.75rem;
                 aspect-ratio: 1 / 1;
                 border-radius: 1rem;
