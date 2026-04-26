@@ -131,7 +131,8 @@ INSERT INTO users (username, password, email, poketype, coins, rol)
 VALUES
 ('ash', '1234', 'ash@email.com', 'fire', 200, 'user'),
 ('misty', '1234', 'misty@email.com', 'water', 150, 'user'),
-('test', '1234', 'test@email.com', 'grass', 1000, 'admin');
+('test', '1234', 'test@email.com', 'grass', 1000, 'admin'),
+('Luis', '4321', 'luis@admin.com', 'water', 2000, 'admin');
 
 -- ======================
 -- POKEMON
@@ -173,7 +174,11 @@ VALUES
 (1, 4, 90, 60, 65),   -- id 2
 (1, 7, 95, 50, 43),   -- id 3
 (2, 7, 100, 50, 43),  -- id 4
-(2, 1, 100, 49, 45);  -- id 5
+(2, 1, 100, 49, 45),  -- id 5
+(4, 25, 100, 55, 90), -- id 6
+(4, 4,  90,  60, 65), -- id 7
+(4, 7,  95,  50, 43), -- id 8
+(4, 1,  100, 49, 45); -- id 9
 
 -- ======================
 -- TEAM
@@ -181,7 +186,8 @@ VALUES
 INSERT INTO team (id_user, name)
 VALUES
 (1, 'Equipo Ash'),     -- id 1
-(2, 'Equipo Misty');   -- id 2
+(2, 'Equipo Misty'),   -- id 2
+(4, 'Equipo Luis');    -- id 3
 
 -- ======================
 -- TEAM_POKEMON
@@ -193,7 +199,12 @@ VALUES
 (1, 3, 3), -- Squirtle
 
 (2, 4, 1), -- Squirtle
-(2, 5, 2); -- Bulbasaur
+(2, 5, 2), -- Bulbasaur
+
+(3, 6, 1), -- Pikachu
+(3, 7, 2), -- Charmander
+(3, 8, 3), -- Squirtle
+(3, 9, 4); -- Bulbasaur
 
 -- ======================
 -- USER_STORE (COMPRAS)

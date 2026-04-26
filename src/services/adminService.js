@@ -1,4 +1,4 @@
-import { User } from '../models/index.js'
+import { User, UserStore } from '../models/index.js'
 import Product from '../models/productsModel.js'
 
 /**
@@ -121,4 +121,18 @@ export const deleteProduct = async (id) => {
   }
 
   await product.destroy()
+}
+
+/**
+ * Obtiene todas las compras de todos los usuarios.
+ * @returns {Promise<UserStore[]>} Lista de compras con usuario y producto incluidos
+ */
+export const getAllPurchases = async () => {
+  return await UserStore.findAll({
+    include: [
+      { model: Product, as: 'product' },
+      { model: User, attributes: ['username'] }
+    ],
+    order: [['user_id_user', 'ASC']]
+  })
 }
