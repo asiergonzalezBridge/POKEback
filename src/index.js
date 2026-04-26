@@ -13,11 +13,11 @@ import session from 'express-session'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-
+// 1. CREAR APP PRIMERO
 const app = express()
 
 app.use(express.json())
-
+// Línea de Claude: Añade al usuario dentro de la tabla users
 app.use(express.urlencoded({ extended: false }))
 
 app.use(session({
@@ -30,18 +30,18 @@ app.use(session({
   }
 }))
 
-
+// VISTAS 
 app.set('view engine', 'pug')
 app.set('views', './src/views')
 app.use(express.static('./public'))
 
-
+// USUARIO DISPONIBLE EN TODAS LAS VISTAS
 app.use((req, res, next) => {
   res.locals.user = req.session?.user || null
   next()
 })
 
-
+// RUTAS
 app.get("/", (req, res) => {
   res.render("index")
 })
@@ -50,7 +50,7 @@ app.use('/', viewRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api', routes)
 
-
+// 6. ERROR HANDLER
 app.use((err, req, res, next) => {
   console.error('❌ Error detectado:', err.message)
   res.status(err.statusCode || 500).json({
@@ -58,7 +58,7 @@ app.use((err, req, res, next) => {
   })
 })
 
-
+// START SERVER
 const startServer = async () => {
   try {
     await sequelize.authenticate()
