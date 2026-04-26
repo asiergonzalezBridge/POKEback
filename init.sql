@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS public.products
     price numeric(10, 2) NOT NULL,
     stock integer NOT NULL,
     expire_time date,
+    image character varying(200),
     PRIMARY KEY (id_product)
 );
 
