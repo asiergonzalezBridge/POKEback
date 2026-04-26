@@ -5,7 +5,17 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { User } from '../models/index.js'
 
-// REGISTER
+/**
+ * Registra un nuevo usuario en la base de datos.
+ * Valida los campos, comprueba si el email ya existe y hashea la contraseña.
+ * @param {Object} data - Datos del nuevo usuario
+ * @param {string} data.username - Nombre de usuario
+ * @param {string} data.email - Email único del usuario
+ * @param {string} data.password - Contraseña en texto plano
+ * @param {string} data.poketype - Tipo de Pokémon favorito
+ * @returns {Promise<Object>} Usuario creado sin el campo password
+ * @throws {Error} 400 si faltan campos | 409 si el email ya está registrado
+ */
 export const register = async ({ username, email, password, poketype }) => {
 
   if (!username || !email || !password || !poketype) {
@@ -36,7 +46,14 @@ export const register = async ({ username, email, password, poketype }) => {
   return userSafe
 }
 
-// LOGIN BASE (reutilizable)
+/**
+ * Verifica las credenciales de un usuario. Soporta contraseñas hasheadas (bcrypt)
+ * y contraseñas en texto plano (usuarios de init.sql).
+ * @param {string} email - Email del usuario
+ * @param {string} password - Contraseña en texto plano
+ * @returns {Promise<User>} Instancia del usuario si las credenciales son válidas
+ * @throws {Error} 401 si el usuario no existe o la contraseña es incorrecta
+ */
 export const loginUser = async (email, password) => {
 
   const user = await User.findOne({ where: { email } })
@@ -49,13 +66,12 @@ export const loginUser = async (email, password) => {
 
   let validPassword = false
 
-// si parece hash → usar bcrypt
-if (user.password.startsWith('$2b$')) {
-  validPassword = await bcrypt.compare(password, user.password)
-} else {
-  // fallback (usuarios del init.sql)
-  validPassword = password === user.password
-}
+  if (user.password.startsWith('$2b$')) {
+    validPassword = await bcrypt.compare(password, user.password)
+  } else {
+    // Fallback para usuarios del init.sql (sin hash)
+    validPassword = password === user.password
+  }
 
   if (!validPassword) {
     const error = new Error('Credenciales incorrectas')
@@ -66,7 +82,14 @@ if (user.password.startsWith('$2b$')) {
   return user
 }
 
-// LOGIN API (JWT)
+/**
+ * Genera un token JWT para el usuario tras validar sus credenciales.
+ * @param {Object} data - Credenciales del usuario
+ * @param {string} data.email - Email del usuario
+ * @param {string} data.password - Contraseña en texto plano
+ * @returns {Promise<string>} Token JWT firmado con expiración de 1 día
+ * @throws {Error} 400 si faltan campos | 401 si las credenciales son incorrectas
+ */
 export const login = async ({ email, password }) => {
 
   if (!email || !password) {
@@ -89,4 +112,5 @@ export const login = async ({ email, password }) => {
 
   return token
 }
+
 export default { register, login, loginUser }

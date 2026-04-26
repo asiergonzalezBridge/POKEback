@@ -1,7 +1,10 @@
-
 import Product from '../models/productsModel.js'
 
-// ID VALIDATION
+/**
+ * Valida que un ID sea un número válido.
+ * @param {*} id - Valor a validar
+ * @throws {Error} 400 si el ID es nulo o no numérico
+ */
 const validateId = (id) => {
   if (!id || isNaN(id)) {
     const error = new Error('ID inválido')
@@ -10,12 +13,20 @@ const validateId = (id) => {
   }
 }
 
-// GET ALL
+/**
+ * Obtiene todos los productos de la base de datos.
+ * @returns {Promise<Product[]>} Lista de productos
+ */
 export const getAllProducts = async () => {
   return await Product.findAll()
 }
 
-// GET BY ID
+/**
+ * Obtiene un producto por su ID.
+ * @param {number} id - ID del producto
+ * @returns {Promise<Product>} Producto encontrado
+ * @throws {Error} 400 si el ID es inválido | 404 si no existe
+ */
 export const getProductById = async (id) => {
   validateId(id)
 
@@ -30,9 +41,20 @@ export const getProductById = async (id) => {
   return product
 }
 
-// CREATE
+/**
+ * Crea un nuevo producto.
+ * @param {Object} data - Datos del producto
+ * @param {string} data.type - Tipo: 'cosmetic', 'pokemon' o 'upgrade'
+ * @param {string} data.name - Nombre del producto
+ * @param {string} [data.description] - Descripción opcional
+ * @param {number} data.price - Precio en monedas
+ * @param {number} data.stock - Unidades disponibles
+ * @param {Date} [data.expire_time] - Fecha de expiración (productos temporales)
+ * @returns {Promise<Product>} Producto creado
+ * @throws {Error} 400 si faltan campos obligatorios
+ */
 export const createProduct = async (data) => {
-  const {type, name, description, price, stock, expire_time} = data
+  const { type, name, description, price, stock, expire_time } = data
 
   if (!type || !name || price === undefined || stock === undefined) {
     const error = new Error('Faltan campos obligatorios')
@@ -40,10 +62,16 @@ export const createProduct = async (data) => {
     throw error
   }
 
-  return await Product.create({type, name, description, price, stock, expire_time})
+  return await Product.create({ type, name, description, price, stock, expire_time })
 }
 
-// UPDATE
+/**
+ * Actualiza los datos de un producto existente.
+ * @param {number} id - ID del producto a actualizar
+ * @param {Object} data - Campos a modificar (parcial)
+ * @returns {Promise<Product>} Producto actualizado
+ * @throws {Error} 400 si el ID es inválido o no hay datos | 404 si no existe
+ */
 export const updateProduct = async (id, data) => {
   validateId(id)
 
@@ -66,7 +94,12 @@ export const updateProduct = async (id, data) => {
   return product
 }
 
-// DELETE
+/**
+ * Elimina un producto de la base de datos.
+ * @param {number} id - ID del producto a eliminar
+ * @returns {Promise<{message: string}>} Mensaje de confirmación
+ * @throws {Error} 400 si el ID es inválido | 404 si no existe
+ */
 export const deleteProduct = async (id) => {
   validateId(id)
 

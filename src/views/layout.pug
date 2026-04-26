@@ -4,35 +4,42 @@ html(lang="es")
         meta(charset="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="styles.css")
+        link(rel="icon" type="image/x-icon" href="/favicon.ico")
         block links
         block title
-            title PokéBack
-    body 
+            title PokéBack 
+    // Se insertan variables a través de pageClass (en
+    // este caso al body para parsonalizar cada página)       
+    block variables
+    body(class=pageClass) 
         header  
             block header
             nav(class="navbar") 
                 ul 
-                    li 
+                    li.nav-logo
                         a(href="/", rel="noopener noreferrer")
                             p(class="logo") PoK
                                 span é
                                 span B
                                 span ack
-                    li
+                    if user && user.rol === 'admin'
+                        li.nav-admin
+                            a(href="/admin") Admin
+                    li.nav-store
                         a(href="/store") Tienda
-                    li 
+                    li.nav-pokemon
                         a(href="/pokemon") Mis Pokémon
-                    li 
+                    li.nav-teams
                         a(href="/teams") Mis Equipos
-                    li 
+                    li.nav-user.hello-user
                         if user && user.username
-                            span Hola, #{user.username}
+                            a(href="/dashboard") Hola, #{user.username}
                             a(href="/logout") Cerrar sesión
                         else
                             a(href="/login") Login
         main
             block content
-                h1 HOLA MUNDETE
+                h1 ¡PokéBack Forever!
         footer
-            p PokeBack © 2025
+            p PokéBack © 2026
         block scripts

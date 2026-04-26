@@ -13,6 +13,8 @@ import session from 'express-session'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import adminRoutes from './routes/adminRoutes.js'
+
 // 1. CREAR APP PRIMERO
 const app = express()
 
@@ -30,12 +32,14 @@ app.use(session({
   }
 }))
 
+app.use('/admin', adminRoutes)
+
 // VISTAS 
 app.set('view engine', 'pug')
 app.set('views', './src/views') 
 app.use(express.static('./public'))
 
-// USUARIO DISPONIBLE EN TODAS LAS VISTAS
+// USUARIO DISPONIBLE EN TODAS LAS VISTAS 
 app.use((req, res, next) => {
   res.locals.user = req.session?.user || null
   next()
