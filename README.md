@@ -41,24 +41,27 @@ src/
 ├── config/
 │   ├── db.js                # Conexión Sequelize
 ├── controllers/             # Recibe la petición, llama a servicio y devuelve resultado final a vista.
+│   ├── adminController.js
 │   ├── authController.js
-│   ├── Controller.js
+│   ├── pokemonController.js
 │   ├── productsController.js
 │   ├── teamController.js
 │   ├── userController.js
-│   ├── userPokemonController.js
+│   ├── userStoreController.js
 ├── middlewares/             # Componentes Clave
 │   ├── authMiddelware.js    # JWT 
 │   ├── sessionMiddelware.js # Sesión + roles
 ├── models/                  # Interactúa con la base de datos y devuelve datos al Servicio.
 │   ├── index.js 
 │   ├── pokemonModel.js      
-│   ├── productModel.js      
+│   ├── productsModel.js      
 │   ├── teamModel.js         
 │   ├── teamPokemonModel.js  
 │   ├── userModel.js         
-│   ├── userPokemonModel.js  
+│   ├── userPokemonModel.js
+│   ├── userStoreModel.js 
 ├── routes/                  # Definición de rutas (API + vistas)
+│   ├── adminRoutes.js
 │   ├── authRoutes.js
 │   ├── index.js
 │   ├── pokemonRoutes.js
@@ -66,15 +69,21 @@ src/
 │   ├── teamRoutes.js
 │   ├── userPokemonRoutes.js
 │   ├── userRoutes.js
+│   ├── userStoreRoutes.js
 │   ├── viewRoutes.js
 ├── services/                # Lógica de negocio
+│   ├── adminService.js
+│   ├── authService.js
 │   ├── pokemonService.js
 │   ├── productService.js
 │   ├── teamService.js
+│   ├── userPokemonService.js
 │   ├── userService.js
-├── index.js 
+│   ├── userStoreService.js
 └── views/                   # Plantillas
+│   ├── admin.pug
 │   ├── dashboard.pug
+│   ├── error.pug
 │   ├── index.pug
 │   ├── layout.pug
 │   ├── login.pug
@@ -82,6 +91,7 @@ src/
 │   ├── register.pug
 │   ├── store.pug
 │   ├── teams.pug
+├── index.js 
 
 ```
 ---
